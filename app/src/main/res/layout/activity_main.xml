@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/mainbackground">
+
+    <TextView
+        android:id="@+id/textView"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="AgriDirect "
+        android:fontFamily="@font/font2"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:typeface="sans"
+        android:textColor="#393737" />
+
+    <!-- Username -->
+    <EditText
+        android:id="@+id/username"
+        android:textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Enter Username"
+        android:fontFamily="@font/font3"
+        android:paddingStart="10dp"
+        android:textColor="@color/textcolor"
+        android:background="@drawable/edittextbackground"
+        android:layout_marginTop="50dp"
+        android:inputType="textPersonName"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"/>
+
+    <!-- Name -->
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:textColor="@color/textcolor"
+        android:fontFamily="@font/font3"
+        android:textSize="14sp"
+        android:background="@drawable/edittextbackground"
+        android:paddingStart="10dp"
+        android:hint="Enter Your Name"
+        android:layout_marginTop="27dp"
+        android:inputType="textPersonName"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"/>
+
+    <!-- Mobile Number -->
+    <EditText
+        android:id="@+id/phoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/edittextbackground"
+        android:fontFamily="@font/font3"
+        android:hint="Enter Phone Number"
+        android:inputType="phone"
+        android:paddingStart="10dp"
+        android:textColor="@color/textcolor"
+        android:textSize="14sp" />
+
+    <!-- Password -->
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/edittextbackground"
+        android:paddingStart="10dp"
+        android:hint="Enter Password"
+        android:textSize="14sp"
+        android:fontFamily="@font/font3"
+        android:textColor="@color/textcolor"
+        android:layout_marginTop="20dp"
+        android:inputType="textPassword"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"/>
+
+    <!-- OTP -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/edittextbackground"
+        android:paddingStart="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="27dp"
+        android:gravity="center_vertical"
+        android:weightSum="2">
+
+        <!-- OTP Input Field -->
+        <EditText
+            android:id="@+id/otp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:paddingStart="5dp"
+            android:fontFamily="@font/font3"
+            android:textColor="@color/textcolor"
+            android:layout_weight="2"
+            android:textSize="15sp"
+            android:hint="Enter OTP"
+            android:layout_marginEnd="5dp"
+            android:inputType="number" />
+
+        <!-- Generate OTP Button -->
+        <Button
+            android:id="@+id/sendOtpBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/font3"
+            android:text="Send OTP"
+            android:textColor="@color/white"
+            app:cornerRadius="5dp" />
+    </LinearLayout>
+        <!-- Sign Up Button -->
+        <Button
+            android:id="@+id/signUpBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font3"
+            android:text="Sign Up"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            app:cornerRadius="5dp" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:padding="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp">
+
+        <!-- Sign In Button -->
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/font3"
+            android:text="Already have an account ! "
+            android:textColor="@color/textcolor"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <Button
+            android:id="@+id/signInBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font3"
+            android:text="Sign in"
+            android:textColor="@color/white"
+            app:cornerRadius="5dp" />
+
+        />
+    </LinearLayout>
+
+</LinearLayout>

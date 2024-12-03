@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainbackground"
+    tools:context=".SignInActivity">
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font2"
+        android:gravity="center"
+        android:text="Sign In !"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:textColor="#393737"
+        android:textSize="45sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        android:layout_marginTop="55dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:paddingStart="15dp"
+        android:background="@drawable/edittextbackground"
+        android:id="@+id/signinphoneNumber"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="90dp"
+        android:textSize="14sp"
+        android:hint="Enter phone number"
+        android:fontFamily="@font/font3"
+        android:textColor="@color/textcolor"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/textview"
+        app:layout_constraintStart_toStartOf="@+id/textview"
+        app:layout_constraintTop_toBottomOf="@+id/textview" />
+
+
+
+    <EditText
+        android:background="@drawable/edittextbackground"
+        android:id="@+id/signinpassword"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="40dp"
+        android:paddingStart="15dp"
+       android:hint="Enter  password"
+        android:fontFamily="@font/font3"
+        android:textSize="14sp"
+        android:textColor="@color/textcolor"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/signinphoneNumber"
+        app:layout_constraintStart_toStartOf="@+id/signinphoneNumber"
+        app:layout_constraintTop_toBottomOf="@+id/signinphoneNumber" />
+
+    <Button
+        android:id="@+id/signin"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Sign In"
+        android:textColor="@color/white"
+        android:fontFamily="@font/font3"
+        app:cornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/signinpassword"
+        app:layout_constraintStart_toStartOf="@+id/signinpassword"
+        app:layout_constraintTop_toBottomOf="@+id/signinpassword" />
+
+    <Button
+        android:id="@+id/forgotpassbtn"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Forgot Password"
+        android:textColor="@color/white"
+        android:fontFamily="@font/font3"
+        app:cornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/signin"
+        app:layout_constraintStart_toStartOf="@+id/signin"
+        app:layout_constraintTop_toBottomOf="@+id/signin" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -65,19 +65,24 @@ class BidAdapter(
 
 
         var token=false
-        if(bidresult.toBoolean() && !bidstatus){
-            token=true
-            holder.binding.eligibleforcontact.text="You Won the auction"
+        if (bidresult.toBoolean() && !bidstatus) {
+            token = true
+            holder.binding.eligibleforcontact.text = "You Won the auction"
 
-            if(!checkuseralreadyrespondornot(bidProduct.sellerId,bidProduct.productId)) {
-                holder.binding.transactionComplete.isEnabled = true
-                holder.binding.transactionnotComplete.isEnabled = true
-            }
-            else{
-                holder.binding.transactionComplete.isEnabled = false
-                holder.binding.transactionnotComplete.isEnabled = false
+            checkuseralreadyrespondornot(bidProduct.sellerId, bidProduct.productId) { alreadyResponded ->
+                if (!alreadyResponded) {
+                    holder.binding.transactionComplete.isEnabled = true
+                    holder.binding.transactionnotComplete.isEnabled = true
+                } else {
+                    holder.binding.transactionComplete.isEnabled = false
+                    holder.binding.transactionnotComplete.isEnabled = false
+                }
             }
 
+        } else if (!bidresult.toBoolean() && bidstatus) {
+            holder.binding.eligibleforcontact.text = "Not Declared"
+        } else if (!bidresult.toBoolean() && !bidstatus) {
+            holder.binding.eligibleforcontact.text = "You have lost the Auction"
         }
         else if(!bidresult.toBoolean() && bidstatus ){
             holder.binding.eligibleforcontact.text="Not Declared"
@@ -148,7 +153,6 @@ class BidAdapter(
             .addValueEventListener(object:ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val currentbhishestbid=snapshot.child("currenthighestbid").value
-
                     holder.binding.currenthishestbid.text="Current Bid: ₹${currentbhishestbid}"
                 }
 
@@ -160,8 +164,8 @@ class BidAdapter(
     }
 
 
-    private fun checkuseralreadyrespondornot(sellerid: String,productId: String):Boolean{
-        var newstatus=false
+    private fun checkuseralreadyrespondornot(sellerid: String,productId: String,callback: (Boolean) -> Unit){
+        var responded = false
         val transRef = FirebaseDatabase.getInstance().getReference("Transactions")
         val sellerId = sellerid
         val buyerId = Firebase.auth.currentUser?.uid
@@ -186,11 +190,12 @@ class BidAdapter(
                                     ignoreCase = true
                                 ) || status.equals("Canceled", ignoreCase = true))
                             ) {
-                                newstatus = true
+                                responded = true
                                 break
                             }
                         }
                     }
+                    callback(responded)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -198,8 +203,6 @@ class BidAdapter(
                 }
             })
 
-
-        return newstatus
     }
 
     private fun showRatingDialog(sellerId: String,status:String,productId:String) {

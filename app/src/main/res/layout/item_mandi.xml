@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="12dp"
+    android:elevation="2dp"
+    app:cardCornerRadius="20dp"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:orientation="vertical"
+            >
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/commodity"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:typeface="sans"
+                android:gravity="center"
+                android:text="Commodity"
+                android:padding="8dp"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:textColor="#212121"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/market"
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Market"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                android:typeface="sans"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginBottom="4dp" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/details"
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Details"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                android:typeface="sans"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginBottom="4dp" />
+
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/minprice"
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Min.Price"
+                android:typeface="sans"
+                android:textSize="14sp"
+                android:textColor="#616161" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/maxprice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Max.Price"
+                android:padding="4dp"
+                android:typeface="sans"
+                android:textSize="14sp"
+                android:textColor="#616161"  />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/avgprice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Avg.Price"
+                android:typeface="sans"
+                android:textSize="16sp"
+                android:padding="5dp"
+                android:textColor="#616161"
+                 />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textColor="@color/buttoncolor"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:typeface="sans"
+                android:maxLines="1"
+                android:ellipsize="end" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

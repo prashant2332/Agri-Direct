@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/gradient_overlay"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rate the buyer (0 to 5)"
+        android:textAppearance="?attr/textAppearanceBodyLarge"
+        android:typeface="sans"
+        android:textSize="17sp"
+        android:layout_marginBottom="12dp"
+        android:textColor="@color/productnamecolor" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="12dp">
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter rating"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ratingEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:typeface="sans"
+            android:inputType="numberDecimal"
+            android:contentDescription="Rating from 0 to 5" />
+    </com.google.android.material.textfield.TextInputLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="16dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:backgroundTint="@color/button_tint_selector"
+            android:elevation="10dp"
+            android:textColor="@color/white"
+            android:typeface="sans"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/rateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rate"
+            android:elevation="10dp"
+            android:backgroundTint="@color/button_tint_selector"
+            android:typeface="sans"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal"
+            android:textSize="14sp"
+            android:layout_marginStart="12dp" />
+    </LinearLayout>
+</LinearLayout>

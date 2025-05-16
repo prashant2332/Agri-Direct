@@ -1,0 +1,29 @@
+<!-- res/layout/fragment_cart.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/gradient_overlay"
+    android:padding="8dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Current Bids"
+        android:textAllCaps="true"
+        android:textColor="@color/productnamecolor"
+        android:textSize="15sp"
+        android:layout_marginBottom="15dp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bidRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
+
+</LinearLayout>

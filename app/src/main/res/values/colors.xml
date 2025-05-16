@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="buttoncolor">#1A5F7E</color>
+    <color name="productnamecolor">#011111</color>
+    <color name="productvarietycolor">#0A2E2E</color>
+    <color name="currentbidcolor">#085F93</color>
+    <color name="bidstatuscolor">#1A7314</color>
+
+
+
+</resources>

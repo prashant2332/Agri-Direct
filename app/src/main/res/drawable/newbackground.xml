@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background Gradient -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="@color/buttoncolor"
+                android:centerColor="#E2E8EF"
+                android:endColor="@color/buttoncolor"
+                android:angle="135" />
+        </shape>
+    </item>
+
+    <!-- Optional overlay for depth (subtle circles or lines) -->
+    <!-- Add more <item> shapes with circles or icons if needed -->
+
+</layer-list>

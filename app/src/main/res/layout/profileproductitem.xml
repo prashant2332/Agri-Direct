@@ -1,0 +1,179 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="4dp"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/product_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="12dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Product Image"
+            android:src="@drawable/noimageavailable"
+            android:background="@drawable/image_rounded_background"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Product Name -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/productname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="Product Name"
+                android:textColor="@color/productnamecolor"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <!-- Variety, Unit, Quantity -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/productvariety"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Variety"
+                android:textColor="@color/productvarietycolor"
+                android:textSize="14sp"
+                android:typeface="sans" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/productunit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Measuring Unit"
+                android:textColor="@color/productvarietycolor"
+                android:textSize="14sp"
+                android:typeface="sans" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/productquantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity"
+                android:textColor="@color/productvarietycolor"
+                android:textSize="14sp"
+                android:typeface="sans" />
+
+            <!-- Price & Bidding Info -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/productprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="₹0"
+                android:textColor="@color/productnamecolor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/current_bid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Current Bid: ₹0"
+                android:textColor="@color/currentbidcolor"
+                android:textSize="16sp"
+                android:typeface="sans" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bidstatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Bid Status"
+                android:textColor="@color/bidstatuscolor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <!-- Inputs -->
+            <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/bid_quantity_layout"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="Bid Quantity"
+            app:layout_constraintTop_toBottomOf="@id/login_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/bid_quantity"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/bidinput_layout"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="Bid Price"
+                app:layout_constraintTop_toBottomOf="@id/login_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/bid_input"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:typeface="sans" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Buttons Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:layout_marginTop="10dp"
+                android:weightSum="2">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addtocartbtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/button_tint_selector"
+                    android:text="Add to Cart"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:typeface="sans"
+                    app:cornerRadius="8dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/place_bid_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/button_tint_selector"
+                    android:text="Place Bid"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:typeface="sans"
+                    app:cornerRadius="8dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardElevation="12dp"
+    card_view:cardCornerRadius="20dp"
+    android:layout_margin="12dp"
+    android:backgroundTint="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/tvCartProductImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/noimageavailable"
+            android:contentDescription="Product Image"
+            android:background="@drawable/image_rounded_background" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvCartProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product Name"
+                android:typeface="sans"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/productnamecolor" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvCartVariety"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Variety"
+                android:textColor="#0A2E2E"
+                android:textSize="14sp"
+                android:typeface="sans" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvCartQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity"
+                android:typeface="sans"
+                android:textSize="14sp"
+                android:textColor="@color/productvarietycolor" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvCartUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unit"
+                android:typeface="sans"
+                android:textSize="14sp"
+                android:textColor="@color/productvarietycolor" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvCartPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="₹0"
+                android:textColor="@color/productnamecolor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/currenthishestbid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current Bid: ₹0"
+                android:textSize="15sp"
+                android:textColor="@color/currentbidcolor"
+                android:typeface="sans"
+                android:layout_marginTop="4dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bidstatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bid Status: Active"
+                android:textSize="15sp"
+                android:textColor="@color/bidstatuscolor"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:layout_marginTop="2dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/eligibleforcontact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Auction Result"
+                android:typeface="sans"
+                android:textSize="16sp"
+                android:textColor="#3D0585"
+                android:layout_marginTop="2dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/removefrombidbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remove from Bids"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:elevation="10dp"
+                android:backgroundTint="@color/button_tint_selector"
+                android:typeface="sans"
+                android:enabled="false"
+                android:layout_marginTop="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/transactionComplete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/button_tint_selector"
+                android:textColor="@color/white"
+                android:text="Successful Transaction"
+                android:typeface="sans"
+                android:textAllCaps="false"
+                android:elevation="10dp"
+                android:enabled="false"
+                android:layout_marginTop="6dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/transactionnotComplete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Canceled Transaction"
+                android:backgroundTint="@color/button_tint_selector"
+                android:typeface="sans"
+                android:elevation="10dp"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:enabled="false"
+                android:layout_marginTop="6dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

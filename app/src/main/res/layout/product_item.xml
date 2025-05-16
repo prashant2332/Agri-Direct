@@ -1,0 +1,184 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp"
+    android:backgroundTint="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <!-- Product Image -->
+        <ImageView
+            android:id="@+id/product_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/noimageavailable"
+            android:background="@drawable/image_rounded_background"
+            android:contentDescription="Product Image" />
+
+        <!-- Details Section -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:paddingEnd="4dp">
+
+            <!-- Product Info -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/productName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="Product Name"
+                android:textColor="@color/productnamecolor"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/productVariety"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Variety"
+                android:textColor="@color/productvarietycolor"
+                android:textSize="14sp"
+                android:typeface="sans" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/productQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity"
+                android:textColor="@color/productvarietycolor"
+                android:textSize="14sp"
+                android:typeface="sans" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/productUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unit"
+                android:textColor="@color/productvarietycolor"
+                android:textSize="14sp"
+                android:typeface="sans" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/productPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="₹0"
+                android:textColor="@color/productnamecolor"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <!-- Bidding Info -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/highestBidTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Current Bid: ₹0"
+                android:textColor="@color/currentbidcolor"
+                android:textSize="15sp"
+                android:typeface="sans" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bidstatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Bid Status: Active"
+                android:textColor="@color/bidstatuscolor"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <!-- Bid Toggle (Visible to seller only) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/enabledisable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/button_tint_selector"
+                android:text="Enabled"
+                android:textAllCaps="false"
+                android:elevation="10dp"
+                android:textColor="@color/white"
+                android:typeface="sans"
+                app:cornerRadius="8dp" />
+
+            <!-- Buttons: Update/Delete -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="start">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/button_tint_selector"
+                    android:text="Update"
+                    android:elevation="10dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:typeface="sans"
+                    app:cornerRadius="8dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/button_tint_selector"
+                    android:text="Delete"
+                    android:elevation="10dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:typeface="sans"
+                    app:cornerRadius="8dp" />
+            </LinearLayout>
+
+            <!-- Transaction Status -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/transactionstatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Transaction Status: Not Available"
+                android:textColor="#3D0585"
+                android:textSize="16sp"
+                android:typeface="sans" />
+
+            <!-- Rate Buyer Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnratebuyer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/button_tint_selector"
+                android:enabled="false"
+                android:text="Rate Buyer"
+                android:elevation="10dp"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:typeface="sans"
+                app:cornerRadius="8dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

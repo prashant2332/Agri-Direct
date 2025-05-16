@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.example.finalyearprojectwithfirebase.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/sell"
+        android:name="com.example.finalyearprojectwithfirebase.fragments.SellFragment"
+        android:label="fragment_sell"
+        tools:layout="@layout/fragment_sell" />
+    <fragment
+        android:id="@+id/buy"
+        android:name="com.example.finalyearprojectwithfirebase.fragments.BuyFragment"
+        android:label="fragment_buy"
+        tools:layout="@layout/fragment_buy" />
+    <fragment
+        android:id="@+id/mandibhav"
+        android:name="com.example.finalyearprojectwithfirebase.fragments.MandiBhavFragment"
+        android:label="fragment_mandi_bhav"
+        tools:layout="@layout/fragment_mandi_bhav" />
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.finalyearprojectwithfirebase.fragments.MyProfileFragment"
+        android:label="fragment_my_profile"
+        tools:layout="@layout/fragment_my_profile" />
+    <fragment
+        android:id="@+id/yourbids"
+        android:name="com.example.finalyearprojectwithfirebase.fragments.YourBiddingFragment"
+        android:label="fragment_your_bids"
+        tools:layout="@layout/fragment_your_bids" />
+
+</navigation>

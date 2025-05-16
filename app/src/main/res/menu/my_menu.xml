@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/menuhome"
+        />
+    <item
+        android:id="@+id/sell"
+        android:title="To Sell"
+        android:icon="@drawable/order"/>
+    <item
+        android:id="@+id/buy"
+        android:title="Cart"
+        android:icon="@drawable/menucart"/>
+
+    <item
+        android:id="@+id/profile"
+        android:title="My Profile"
+        android:icon="@drawable/menuprofile"/>
+
+    <item android:id="@+id/mandibhav"
+        android:title="Mandi Bhav"
+        android:icon="@drawable/marketprice"/>
+    <item android:id="@+id/yourbids"
+        android:title="Current Bids"
+        android:icon="@drawable/auction"/>
+
+    <item
+        android:id="@+id/logout"
+        android:title="Log out"
+        android:icon="@drawable/menulogout"/>
+
+
+
+</menu>

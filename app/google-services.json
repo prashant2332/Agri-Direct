@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "683254121626",
+    "firebase_url": "https://farmhelp-80908-default-rtdb.firebaseio.com",
+    "project_id": "farmhelp-80908",
+    "storage_bucket": "farmhelp-80908.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683254121626:android:ffbd59a0b09ce70eb3cb23",
+        "android_client_info": {
+          "package_name": "com.example.agrishop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxJ546AbrRMbOircuKa3LhII45vVfAc1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683254121626:android:c84d46c64ecfda8bb3cb23",
+        "android_client_info": {
+          "package_name": "com.example.finalyearprojectwithfirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxJ546AbrRMbOircuKa3LhII45vVfAc1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

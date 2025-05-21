@@ -1,9 +1,7 @@
 package com.example.finalyearprojectwithfirebase.network
 
-
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 object MandiClient {
     private const val BASE_URL = "https://api.data.gov.in/"
 

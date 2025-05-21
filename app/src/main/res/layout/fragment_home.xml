@@ -19,7 +19,7 @@
             android:background="@drawable/gradient_overlay">
 
             <!-- Input fields -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,13 +36,14 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/search_product"
                         android:layout_width="match_parent"
+                        android:fontFamily="@font/poppins_regular"
                         android:layout_height="wrap_content"
                         android:inputType="text"
                          />
                 </com.google.android.material.textfield.TextInputLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,14 +58,16 @@
                     android:hint="Select State">
 
                     <AutoCompleteTextView
+                        android:fontFamily="@font/poppins_regular"
                         android:id="@+id/state"
+                        android:inputType="none"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,19 +84,21 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/district"
+                        android:fontFamily="@font/poppins_regular"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Price Range Label -->
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/seektext"
                 android:paddingStart="12dp"
                 android:textColor="@color/buttoncolor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
                 android:textSize="14sp"
                 android:text="Select the price range (₹0 – ₹25,000)"
                 />
@@ -110,11 +115,12 @@
                 app:thumbTint="@color/buttoncolor" />
 
             <!-- Selected Max Price Text -->
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/selectedmaxprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
+                android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/buttoncolor"
                 android:text="Max Price: ₹0"
                 android:paddingStart="12dp"
@@ -126,6 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Search"
+                android:fontFamily="@font/poppins_regular"
                 app:cornerRadius="5dp"
                 android:layout_gravity="center"
                 app:icon="@drawable/vectorsearch"

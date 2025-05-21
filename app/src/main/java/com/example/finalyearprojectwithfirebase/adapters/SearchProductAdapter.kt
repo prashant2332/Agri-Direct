@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.finalyearprojectwithfirebase.databinding.ItemProductBinding
+import com.example.finalyearprojectwithfirebase.databinding.SearchproductItemBinding
 import com.example.finalyearprojectwithfirebase.model.SearchProduct
 
 class SearchProductAdapter(
@@ -15,7 +15,7 @@ class SearchProductAdapter(
 ) : RecyclerView.Adapter<SearchProductAdapter.ProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val binding = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = SearchproductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ProductViewHolder(binding)
     }
 
@@ -26,8 +26,6 @@ class SearchProductAdapter(
         holder.binding.productVariety.text="Variety: ${product.variety}"
         holder.binding.productUnit.text="Unit: ${product.unit}"
         holder.binding.productQuantity.text="Quantity: ${product.quantity.toString()}"
-
-
 
         val bidstatus=product.isbiddingenabled
         if(bidstatus){
@@ -52,5 +50,5 @@ class SearchProductAdapter(
 
     override fun getItemCount(): Int = products.size
 
-    class ProductViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
+    class ProductViewHolder(val binding: SearchproductItemBinding) : RecyclerView.ViewHolder(binding.root)
 }

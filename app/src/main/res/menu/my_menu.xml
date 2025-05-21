@@ -10,8 +10,8 @@
         android:title="To Sell"
         android:icon="@drawable/order"/>
     <item
-        android:id="@+id/buy"
-        android:title="Cart"
+        android:id="@+id/wishlist"
+        android:title="Wishlist"
         android:icon="@drawable/menucart"/>
 
     <item

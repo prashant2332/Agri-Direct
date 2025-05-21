@@ -22,14 +22,15 @@
 
             <!-- Title Text -->
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/toolbartitletextview"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Agridirect"
-                android:fontFamily="@font/font2"
+                android:fontFamily="@font/poppins_regular"
                 android:textStyle="bold"
-                android:textSize="28sp"
+                android:textAllCaps="true"
+                android:textSize="24sp"
                 android:typeface="sans"
                 android:textColor="@color/white"
                 android:maxLines="1"

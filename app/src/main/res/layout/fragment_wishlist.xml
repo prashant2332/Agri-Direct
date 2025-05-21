@@ -1,0 +1,32 @@
+<!-- res/layout/fragment_cart.xml -->
+<FrameLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/gradient_overlay"
+    android:layout_height="match_parent">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical"
+       android:padding="8dp">
+
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/cartRecyclerView"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:clipToPadding="false"
+          android:scrollbars="vertical" />
+   </LinearLayout>
+   <com.airbnb.lottie.LottieAnimationView
+       android:id="@+id/progressBar"
+       android:layout_width="120dp"
+       android:layout_height="120dp"
+       android:layout_gravity="center"
+       android:visibility="gone"
+       app:lottie_rawRes="@raw/loader"
+       app:lottie_autoPlay="true"
+       app:lottie_loop="true" />
+</FrameLayout>
+

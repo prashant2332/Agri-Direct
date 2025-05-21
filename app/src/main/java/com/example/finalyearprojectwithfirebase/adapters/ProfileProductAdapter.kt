@@ -13,9 +13,11 @@ import com.example.finalyearprojectwithfirebase.R
 import com.example.finalyearprojectwithfirebase.databinding.ProfileproductitemBinding
 import com.example.finalyearprojectwithfirebase.model.ProfileProduct
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 
@@ -25,7 +27,8 @@ class ProfileProductAdapter(
     val context: Context,
     private val onBidClick: () -> Unit) : RecyclerView.Adapter<ProfileProductAdapter.ProfileProductViewHolder>() {
 
-    private val currentUserId: String? = Firebase.auth.currentUser?.uid
+    private val currentUserId: String? = FirebaseAuth.getInstance().currentUser?.uid
+    private val database=FirebaseDatabase.getInstance().reference
 
     inner class ProfileProductViewHolder(val binding: ProfileproductitemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -113,10 +116,7 @@ class ProfileProductAdapter(
 
     // Place Bid in Firebase
     private fun placeBid(product: ProfileProduct, bidInput: Int, bidQuantity: Int) {
-        val productRef = Firebase.database.reference
-            .child("Bids")
-            .child(product.sellerid!!)
-            .child(product.productId!!)
+        val productRef = database.child("Bids").child(product.sellerid!!).child(product.productId!!)
 
         productRef.child("currenthighestbid").setValue(bidInput)
         productRef.child("currentbidderid").setValue(currentUserId)
@@ -129,9 +129,7 @@ class ProfileProductAdapter(
                 Toast.makeText(context, "Bid is not Placed", Toast.LENGTH_SHORT).show()
             }
 
-        val bidRef = Firebase.database.reference
-            .child("YourBids")
-            .child(currentUserId!!)
+        val bidRef = database.child("YourBids").child(currentUserId!!)
 
         bidRef.get().addOnSuccessListener { snapshot ->
             var bidUpdated = false
@@ -166,23 +164,16 @@ class ProfileProductAdapter(
         }
     }
 
-
-    // Add product to cart
     private fun addToCart(product: ProfileProduct) {
 
         if(!checkwhtheraddedtocartornot(product)) {
             val cartRef = currentUserId?.let {
-                Firebase.database.reference
-                    .child("Cart")
-                    .child(it)
-                    .push()
-            } // generates unique cart_id
-
+                database.child("Cart").child(it).push()
+            }
             val cartItem = mapOf(
                 "sellerId" to product.sellerid,
                 "productId" to product.productId
             )
-
             cartRef?.setValue(cartItem)
                 ?.addOnSuccessListener {
                     Toast.makeText(context, "Added to your cart", Toast.LENGTH_SHORT).show()
@@ -199,7 +190,7 @@ class ProfileProductAdapter(
     private fun checkwhtheraddedtocartornot(product: ProfileProduct):Boolean{
         var status=false
         if (currentUserId != null) {
-            Firebase.database.reference.child("Cart")
+            database.child("Cart")
                 .child(currentUserId)
                 .orderByChild("productId")
                 .equalTo(product.productId)
@@ -210,17 +201,14 @@ class ProfileProductAdapter(
                         }
 
                     }
-
                     override fun onCancelled(error: DatabaseError) {
                         Toast.makeText(context, "Failed to access the  cart", Toast.LENGTH_SHORT).show()
                     }
-
                 })
         }
         return status
     }
 
-    // Show full-screen image dialog
     private fun showFullScreenDialog(imageUrl: String) {
         val dialog = Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
         dialog.setContentView(R.layout.dialogfullscreenimage)

@@ -1,216 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient_overlay"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingEnd="24dp"
-        android:paddingStart="20dp">
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_overlay"
+        android:fillViewport="true">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/register_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/register"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:textColor="@color/buttoncolor"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:layout_gravity="center_horizontal"
-             />
-
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="12dp"
-            android:layout_marginTop="10dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/registeremail">
+            android:orientation="vertical"
+            android:paddingEnd="24dp"
+            android:paddingStart="20dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_email"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/register_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="1dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/register"
+                android:textColor="@color/buttoncolor"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:typeface="sans" />
-        </com.google.android.material.textfield.TextInputLayout>
-        </androidx.cardview.widget.CardView>
+                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                android:layout_marginTop="7dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white"
+                    android:hint="@string/registeremail">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            app:cardElevation="4dp"
-            app:cardCornerRadius="12dp"
-            android:layout_marginTop="10dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/registerpassword"
-            app:endIconMode="password_toggle">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_password"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:typeface="sans" />
-        </com.google.android.material.textfield.TextInputLayout>
-        </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                android:layout_marginTop="7dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    android:id="@+id/password"
+                    app:boxBackgroundColor="@android:color/white"
+                    android:hint="@string/registerpassword"
+                    app:endIconMode="password_toggle">
 
-            app:cardElevation="4dp"
-            app:cardCornerRadius="12dp"
-            android:layout_marginTop="10dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/confirm_password"
-            app:endIconMode="password_toggle">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_confirm_password"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:typeface="sans" />
-        </com.google.android.material.textfield.TextInputLayout>
-        </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="12dp"
-            android:layout_marginTop="10dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/phone_number">
+                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                android:layout_marginTop="7dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/confirmpassword"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white"
+                    android:hint="@string/confirm_password"
+                    app:endIconMode="password_toggle">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_phonenumber"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_confirm_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:typeface="sans" />
-        </com.google.android.material.textfield.TextInputLayout>
-        </androidx.cardview.widget.CardView>
+                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                android:layout_marginTop="7dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/phone"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white"
+                    android:hint="@string/phone_number">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_phonenumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="phone" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            app:cardElevation="4dp"
-            app:cardCornerRadius="12dp"
-            android:layout_marginTop="10dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/your_name"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_username"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:typeface="sans" />
-        </com.google.android.material.textfield.TextInputLayout>
-        </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="12dp"
-            android:layout_marginTop="10dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/your_state">
+                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                android:layout_marginTop="7dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    android:id="@+id/name"
+                    app:boxBackgroundColor="@android:color/white"
+                    android:hint="@string/your_name"
+                    >
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_state"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="textPersonName" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- State Dropdown -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:typeface="sans" />
-        </com.google.android.material.textfield.TextInputLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="12dp"
-            android:layout_marginTop="10dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/your_district">
+                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                android:layout_marginTop="7dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_district"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/state"
+                    app:boxBackgroundMode="filled"
+                    android:hint="Select State">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/register_state"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:typeface="sans" />
-        </com.google.android.material.textfield.TextInputLayout>
-        </androidx.cardview.widget.CardView>
+                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                android:layout_marginTop="7dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="12dp"
-            android:layout_marginTop="10dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/your_locale_address">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_localeaddress"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/districtlayout"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white"
+                    android:hint="Select District">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/register_district"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:typeface="sans" />
-        </com.google.android.material.textfield.TextInputLayout>
-        </androidx.cardview.widget.CardView>
+                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                android:layout_marginTop="7dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    android:id="@+id/localeaddress"
+                    app:boxBackgroundColor="@android:color/white"
+                    android:hint="@string/your_locale_address">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_register"
-            android:layout_width="match_parent"
-            android:typeface="sans"
-            android:layout_height="wrap_content"
-            android:text="@string/registerbtn"
-            android:elevation="10dp"
-            android:backgroundTint="@color/button_tint_selector"
-            android:layout_marginTop="16dp"
-            android:textColor="@android:color/white"
-            app:cornerRadius="8dp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_localeaddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="textPostalAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/login_redirect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/already_have_an_account_login"
-            android:textColor="#113965"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:layout_marginTop="24dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/button_tint_selector"
+                android:elevation="10dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/registerbtn"
+                android:textColor="@android:color/white"
+                app:cornerRadius="8dp" />
 
-    </LinearLayout>
-</ScrollView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/login_redirect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="@string/already_have_an_account_login"
+                android:textColor="#113965"
+                android:textSize="14sp" />
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+    <!-- Lottie Loader for loading animation -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progressBar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:lottie_rawRes="@raw/loader"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
+</FrameLayout>
+

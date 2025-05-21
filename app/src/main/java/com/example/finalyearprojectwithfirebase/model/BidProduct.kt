@@ -12,5 +12,4 @@ data class BidProduct(
     val price: Int=0,
     val image:String="",
     val isbiddingenabled:Boolean=false,
-
 )

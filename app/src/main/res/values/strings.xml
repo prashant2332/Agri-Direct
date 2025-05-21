@@ -22,4 +22,16 @@
     <string name="your_locale_address">Locale Address</string>
     <string name="registerbtn">Register</string>
     <string name="already_have_an_account_login">Already have an account? Login</string>
+    <string name="place_bid">Place Bid</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="bid_price">Bid Price</string>
+    <string name="bid_quantity">Bid Quantity</string>
+    <string name="bid_status">Bid Status</string>
+    <string name="current_bid_0">Current Bid: ₹0</string>
+    <string name="_0">₹0</string>
+    <string name="quantity">Quantity</string>
+    <string name="measuring_unit">Measuring Unit</string>
+    <string name="variety">Variety</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_image">Product Image</string>
 </resources>

@@ -1,10 +1,12 @@
 package com.example.finalyearprojectwithfirebase.fragments
 
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -107,6 +109,11 @@ class HomeFragment : Fragment() {
 
         // Search button click listener
         binding.btnSearch.setOnClickListener {
+
+            // 1. Hide keyboard
+            val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+
             val productName = binding.searchProduct.text.toString().trim()
             val state = binding.state.text.toString().trim()
             val district = binding.district.text.toString().trim()

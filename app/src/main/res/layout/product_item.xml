@@ -40,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:text="Product Name"
+                android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/productnamecolor"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -49,6 +50,7 @@
                 android:id="@+id/productVariety"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
                 android:text="Variety"
                 android:textColor="@color/productvarietycolor"
                 android:textSize="14sp"
@@ -58,6 +60,7 @@
                 android:id="@+id/productQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
                 android:text="Quantity"
                 android:textColor="@color/productvarietycolor"
                 android:textSize="14sp"
@@ -67,6 +70,7 @@
                 android:id="@+id/productUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
                 android:text="Unit"
                 android:textColor="@color/productvarietycolor"
                 android:textSize="14sp"
@@ -78,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:text="₹0"
+                android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/productnamecolor"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -89,6 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:fontFamily="@font/poppins_regular"
                 android:text="Current Bid: ₹0"
                 android:textColor="@color/currentbidcolor"
                 android:textSize="15sp"
@@ -100,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="Bid Status: Active"
+                android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/bidstatuscolor"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -110,6 +117,7 @@
                 android:id="@+id/enabledisable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@color/button_tint_selector"
                 android:text="Enabled"
@@ -131,6 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_regular"
                     android:backgroundTint="@color/button_tint_selector"
                     android:text="Update"
                     android:elevation="10dp"
@@ -143,6 +152,7 @@
                     android:id="@+id/btnDelete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
                     android:layout_marginTop="8dp"
                     android:backgroundTint="@color/button_tint_selector"
                     android:text="Delete"
@@ -162,22 +172,25 @@
                 android:text="Transaction Status: Not Available"
                 android:textColor="#3D0585"
                 android:textSize="16sp"
+                android:fontFamily="@font/poppins_regular"
                 android:typeface="sans" />
-
-            <!-- Rate Buyer Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnratebuyer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_regular"
                 android:backgroundTint="@color/button_tint_selector"
+                android:text="Rate buyer"
                 android:enabled="false"
-                android:text="Rate Buyer"
                 android:elevation="10dp"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:typeface="sans"
                 app:cornerRadius="8dp" />
+
+
+
         </LinearLayout>
 
     </LinearLayout>

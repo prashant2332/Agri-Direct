@@ -1,169 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@drawable/gradient_overlay">
-
-    <LinearLayout
+    android:layout_height="match_parent">
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="@drawable/gradient_overlay">
 
-        <!-- Profile Card -->
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
+            android:orientation="vertical"
+            android:padding="16dp">
 
+            <!-- Profile Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/profileImageView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginEnd="16dp"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/rounded_border"
+                        android:clipToOutline="true"
+                        android:src="@drawable/profile" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/username"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Username"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="email@example.com"
+                            android:textSize="14sp"
+                            android:textColor="@color/productvarietycolor" />
+
+                        <TextView
+                            android:id="@+id/address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="User Address Here"
+                            android:textSize="14sp"
+                            android:textColor="@color/productvarietycolor"
+                            android:maxLines="2"
+                            android:ellipsize="end" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Stats -->
+            <TextView
+                android:id="@+id/succesfultransaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total Successful Transactions: 0"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/rating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rating: 5.0 ★"
+                android:textSize="16sp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Call & Message Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="16dp"
-                android:gravity="center_vertical">
+                android:gravity="center"
+                android:layout_marginBottom="16dp">
 
-                <ImageView
-                    android:id="@+id/profileImageView"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginEnd="16dp"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/rounded_border"
-                    android:clipToOutline="true"
-                    android:src="@drawable/profile" />
-
-                <LinearLayout
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/callButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:text="Call"
+                    android:elevation="10dp"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="@color/button_tint_selector"
+                    app:iconPadding="8dp"
+                    app:cornerRadius="8dp"
+                    android:enabled="false" />
 
-                    <TextView
-                        android:id="@+id/username"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Username"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                <Space
+                    android:layout_width="12dp"
+                    android:layout_height="match_parent" />
 
-                    <TextView
-                        android:id="@+id/email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="email@example.com"
-                        android:textSize="14sp"
-                        android:textColor="@color/productvarietycolor" />
-
-                    <TextView
-                        android:id="@+id/address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="User Address Here"
-                        android:textSize="14sp"
-                        android:textColor="@color/productvarietycolor"
-                        android:maxLines="2"
-                        android:ellipsize="end" />
-                </LinearLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/messageButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Message"
+                    android:elevation="10dp"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="@color/button_tint_selector"
+                    app:iconPadding="8dp"
+                    app:cornerRadius="8dp"
+                    android:enabled="false" />
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
 
-        <!-- Stats -->
-        <TextView
-            android:id="@+id/succesfultransaction"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Total Successful Transactions: 0"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginBottom="4dp" />
-
-        <TextView
-            android:id="@+id/rating"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Rating: 5.0 ★"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Call & Message Buttons -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="16dp">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/callButton"
-                android:layout_width="0dp"
+            <!-- Product Section Header -->
+            <LinearLayout
+                android:id="@+id/expandProductsHeader"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Call"
-                android:elevation="10dp"
-                android:textColor="@android:color/white"
-                android:backgroundTint="@color/button_tint_selector"
-                app:iconPadding="8dp"
-                app:cornerRadius="8dp"
-                android:enabled="false" />
+                android:orientation="horizontal"
+                android:paddingVertical="8dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
 
-            <Space
-                android:layout_width="12dp"
-                android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/productsToSellTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Products to Sell"
+                    android:textColor="@color/buttoncolor"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/baseline_arrow_forward_ios_24"/>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/messageButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Message"
-                android:elevation="10dp"
-                android:textColor="@android:color/white"
-                android:backgroundTint="@color/button_tint_selector"
-                app:iconPadding="8dp"
-                app:cornerRadius="8dp"
-                android:enabled="false" />
+            </LinearLayout>
+
+            <!-- Product List -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/productsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:clipToPadding="false"
+                android:paddingBottom="24dp" />
         </LinearLayout>
+    </ScrollView>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progressBar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:lottie_rawRes="@raw/loader"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
+</FrameLayout>
 
-        <!-- Product Section Header -->
-        <LinearLayout
-            android:id="@+id/expandProductsHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingVertical="8dp"
-            android:gravity="center_vertical"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-
-            <TextView
-                android:id="@+id/productsToSellTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Products to Sell"
-                android:textColor="@color/buttoncolor"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/baseline_arrow_forward_ios_24"/>
-
-        </LinearLayout>
-
-        <!-- Product List -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/productsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:nestedScrollingEnabled="false"
-            android:clipToPadding="false"
-            android:paddingBottom="24dp" />
-    </LinearLayout>
-</ScrollView>

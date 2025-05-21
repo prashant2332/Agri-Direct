@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
     <ScrollView
 
     android:layout_width="match_parent"
@@ -37,28 +37,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Edit Pic"
-            android:elevation="10dp"
             android:backgroundTint="@color/button_tint_selector"
-            android:typeface="sans"
+            android:elevation="10dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Edit Pic"
             android:textColor="@android:color/white"
-            app:layout_constraintTop_toBottomOf="@+id/profile_photo"
+            android:typeface="sans"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_photo" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/removeprofilephoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:elevation="10dp"
-            android:text="Remove Pic"
             android:backgroundTint="@color/button_tint_selector"
-            android:typeface="sans"
+            android:elevation="10dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Remove Pic"
             android:textColor="@android:color/white"
-            app:layout_constraintTop_toBottomOf="@+id/editprofilephoto"
+            android:typeface="sans"
+            app:layout_constraintEnd_toEndOf="@id/editprofilephoto"
             app:layout_constraintStart_toStartOf="@id/editprofilephoto"
-            app:layout_constraintEnd_toEndOf="@id/editprofilephoto" />
+            app:layout_constraintTop_toBottomOf="@+id/editprofilephoto" />
 
 
         <!-- Details CardView Container -->
@@ -90,6 +92,7 @@
                     <TextView
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
                         android:text="Name: "
                         android:textColor="#444"
                         android:textStyle="bold"
@@ -100,6 +103,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:text="Not Mentioned"
                         android:textColor="#000"
@@ -115,6 +119,7 @@
                     <TextView
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
                         android:text="Email: "
                         android:textColor="#444"
                         android:textStyle="bold"
@@ -125,6 +130,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:text="Not mentioned"
                         android:textColor="#000"
@@ -140,6 +146,7 @@
                     <TextView
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
                         android:text="Phone: "
                         android:textColor="#444"
                         android:textStyle="bold"
@@ -150,6 +157,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:text="Not mentioned"
                         android:textColor="#000"
@@ -165,6 +173,7 @@
                     <TextView
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
                         android:text="State: "
                         android:textColor="#444"
                         android:textStyle="bold"
@@ -175,6 +184,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:text="Not mentioned"
                         android:textColor="#000"
@@ -190,6 +200,7 @@
                     <TextView
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
                         android:text="District: "
                         android:textColor="#444"
                         android:textStyle="bold"
@@ -200,6 +211,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:text="Not mentioned"
                         android:textColor="#000"
@@ -215,6 +227,7 @@
                     <TextView
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
                         android:text="Locale Address: "
                         android:textColor="#444"
                         android:textStyle="bold"
@@ -225,6 +238,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:text="Not mentioned"
                         android:textColor="#000"
@@ -240,6 +254,7 @@
                     <TextView
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
                         android:text="Successful Transactions: "
                         android:textColor="#444"
                         android:textStyle="bold"
@@ -250,6 +265,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:text="0"
                         android:textColor="#000"
@@ -264,6 +280,7 @@
                     <TextView
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
                         android:text="Rating:"
                         android:textColor="#444"
                         android:textStyle="bold"
@@ -274,6 +291,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:text="0"
                         android:textColor="#000"
@@ -290,23 +308,26 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/button_tint_selector"
+            android:elevation="10dp"
+            android:fontFamily="@font/poppins_regular"
             android:text="Edit Details"
             android:textColor="@android:color/white"
             android:typeface="sans"
-            android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profileCard" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
-    <!-- ProgressBar overlay -->
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        />
+    <com.airbnb.lottie.LottieAnimationView
+    android:id="@+id/progressBar"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:layout_gravity="center"
+    android:visibility="visible"
+    app:lottie_rawRes="@raw/loader"
+    app:lottie_autoPlay="true"
+    app:lottie_loop="true" />
 </FrameLayout>
 
 

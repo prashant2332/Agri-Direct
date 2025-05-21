@@ -22,7 +22,7 @@
             android:layout_marginEnd="12dp"
             android:scaleType="centerCrop"
             android:src="@drawable/noimageavailable"
-             />
+            />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -35,11 +35,12 @@
                 android:id="@+id/product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Product Name"
+                android:text="@string/product_name"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/productnamecolor"
                 android:typeface="sans"
+                android:fontFamily="@font/poppins_regular"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:layout_marginBottom="4dp" />
@@ -49,7 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:typeface="sans"
-                android:text="Variety"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/variety"
                 android:textSize="14sp"
                 android:textColor="@color/productvarietycolor"
                 android:maxLines="1"
@@ -59,7 +61,8 @@
                 android:id="@+id/product_unit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Unit"
+                android:text="@string/measuring_unit"
+                android:fontFamily="@font/poppins_regular"
                 android:typeface="sans"
                 android:textSize="14sp"
                 android:textColor="@color/productvarietycolor" />
@@ -68,8 +71,9 @@
                 android:id="@+id/product_quantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Quantity"
+                android:text="@string/quantity"
                 android:typeface="sans"
+                android:fontFamily="@font/poppins_regular"
                 android:textSize="14sp"
                 android:textColor="@color/productvarietycolor"  />
 
@@ -78,25 +82,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="₹0"
-                android:typeface="sans"
+                android:fontFamily="@font/poppins_regular"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/productnamecolor"
-
-
-
                 android:layout_marginTop="6dp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/bidstatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bidding is Closed"
+                android:text="@string/bid_status"
                 android:layout_marginTop="4dp"
+                android:fontFamily="@font/poppins_regular"
                 android:textSize="15sp"
                 android:textColor="@color/bidstatuscolor"
                 android:textStyle="bold"
-                android:typeface="sans"
                 android:maxLines="1"
                 android:ellipsize="end" />
         </LinearLayout>

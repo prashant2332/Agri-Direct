@@ -5,12 +5,14 @@ package com.example.finalyearprojectwithfirebase
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.finalyearprojectwithfirebase.activities.LoginActivity
@@ -28,6 +30,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
     private lateinit var toolbar: Toolbar
+    private lateinit var toolbarTitleTextView: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,69 +40,33 @@ class MainActivity : AppCompatActivity() {
         drawerLayout=binding.drawerLayout
         navigationView=binding.navigationView
         toolbar=findViewById(R.id.toolbar)
+        toolbarTitleTextView = toolbar.findViewById(R.id.toolbartitletextview)
+
 
         //step 1
         setSupportActionBar(toolbar)
-
         //step 2
-        val toggle= ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.OpenDrawer,R.string.CloseDrawer)
-
-        val drawable = toggle.drawerArrowDrawable
-        drawable.color = ContextCompat.getColor(this, R.color.white)
-
-        //step 3
-        drawerLayout.addDrawerListener(toggle)
-
-        //step 4
-        toggle.syncState()
-
-
+        setupDrawerToggle()
 
         val navController = findNavController(R.id.fragmentcontainer)
         val nav = binding.navigationView
         nav.setupWithNavController(navController)
 
         nav.setNavigationItemSelectedListener { item ->
-            // Clear all selections and highlight the selected item
+
             for (i in 0 until nav.menu.size()) {
                 nav.menu.getItem(i).isChecked = false
             }
             item.isChecked = true
 
-            val currentDestination = navController.currentDestination?.id
 
             when (item.itemId) {
-                R.id.home -> {
-
-                    if (currentDestination != R.id.home) {
-                        navController.navigate(R.id.home)
-                    }
-                }
-                R.id.profile -> {
-                    if (currentDestination != R.id.profile) {
-                        navController.navigate(R.id.profile)
-                    }
-                }
-                R.id.sell -> {
-                    if (currentDestination != R.id.sell) {
-                        navController.navigate(R.id.sell)
-                    }
-                }
-                R.id.buy -> {
-                    if (currentDestination != R.id.buy) {
-                        navController.navigate(R.id.buy)
-                    }
-                }
-                R.id.mandibhav -> {
-                    if (currentDestination != R.id.mandibhav) {
-                        navController.navigate(R.id.mandibhav)
-                    }
-                }
-                R.id.yourbids -> {
-                    if (currentDestination != R.id.yourbids) {
-                        navController.navigate(R.id.yourbids)
-                    }
-                }
+                R.id.home -> navigateIfNotCurrent(navController, R.id.home)
+                R.id.profile -> navigateIfNotCurrent(navController, R.id.profile)
+                R.id.sell -> navigateIfNotCurrent(navController, R.id.sell)
+                R.id.wishlist -> navigateIfNotCurrent(navController, R.id.wishlist)
+                R.id.mandibhav -> navigateIfNotCurrent(navController, R.id.mandibhav)
+                R.id.yourbids -> navigateIfNotCurrent(navController, R.id.yourbids)
                 R.id.logout -> {
                     Firebase.auth.signOut()
                     startActivity(Intent(this@MainActivity, LoginActivity::class.java))
@@ -110,23 +78,47 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-
-
-
-        onBackPressedDispatcher.addCallback(this,object: OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-                    drawerLayout.closeDrawer(GravityCompat.START)
-                }
-               else{
-                    val navcontroller = findNavController(R.id.fragmentcontainer)
-                    if (!navcontroller.popBackStack()) {
-                        finish()
-                    }
-                }
+        setupBackButtonHandler()
+        // 🔥 Add this block to change toolbar title dynamically
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            val title = when (destination.id) {
+                R.id.home -> "Home"
+                R.id.profile -> "Profile"
+                R.id.sell -> "Product Stock"
+                R.id.wishlist -> "Wishlist"
+                R.id.mandibhav -> "Mandi Bhav"
+                R.id.yourbids -> "Your Bids"
+                else -> "Agridirect"
             }
-
-        })
+            toolbarTitleTextView.text = title
+        }
 
     }
+
+    private fun navigateIfNotCurrent(navController: NavController, destinationId: Int) {
+        if (navController.currentDestination?.id != destinationId) {
+            navController.navigate(destinationId)
+        }
+    }
+
+    private fun setupBackButtonHandler() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                } else {
+                    val navcontroller = findNavController(R.id.fragmentcontainer)
+                    if (!navcontroller.popBackStack()) finish()
+                }
+            }
+        })
+    }
+
+    private fun setupDrawerToggle() {
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.OpenDrawer, R.string.CloseDrawer)
+        toggle.drawerArrowDrawable.color = ContextCompat.getColor(this, R.color.white)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+    }
+
 }

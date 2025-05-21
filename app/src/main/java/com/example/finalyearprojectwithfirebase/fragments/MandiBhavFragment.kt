@@ -1,9 +1,11 @@
 package com.example.finalyearprojectwithfirebase.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import android.widget.ArrayAdapter
@@ -90,6 +92,10 @@ class MandiBhavFragment : Fragment() {
         apiService = MandiClient.instance
 
         binding.searchpricebtn.setOnClickListener {
+
+            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+
             val productname = binding.productname.text.toString()
             val statename = binding.statename.text.toString()
             val district = binding.district.text.toString()

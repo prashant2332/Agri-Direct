@@ -23,8 +23,8 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var productAdapter: ProfileProductAdapter
     private val productList: MutableList<ProfileProduct> = mutableListOf()
 
-    private val database = FirebaseDatabase.getInstance()
-    private val usersRef = database.getReference("Users")
+    private val database = FirebaseDatabase.getInstance().reference
+    private val usersRef = database.child("Users")
     private lateinit var userId: String
 
 
@@ -36,47 +36,74 @@ class ProfileActivity : AppCompatActivity() {
         // Get user ID from intent
         userId = intent.getStringExtra("USER_ID") ?: ""
 
-        val token=intent.getStringExtra("token")
+        binding.progressBar.visibility = View.VISIBLE
 
-        if(token.toBoolean()){
-            binding.callButton.isEnabled=true
-            binding.messageButton.isEnabled=true
+
+        val token = intent.getStringExtra("token")
+
+        if (token.toBoolean()) {
+            binding.callButton.isEnabled = true
+            binding.messageButton.isEnabled = true
         }
 
 
         // Set up RecyclerView
         productAdapter = ProfileProductAdapter(productList,
             this@ProfileActivity,
-            onBidClick = { fetchUserProducts() })
-        binding.productsRecyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+            onBidClick = { fetchUserProducts{} })
+        binding.productsRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.productsRecyclerView.adapter = productAdapter
 
-        fetchUserDetails()
-        fetchUserProducts()
-    }
+        // 👇 Combine both async fetches before hiding progress bar
+        var tasksRemaining = 2
+        fun taskDone() {
+            tasksRemaining--
+            if (tasksRemaining == 0) {
+                binding.progressBar.visibility = View.GONE
+            }
+        }
 
-    private fun fetchUserDetails() {
+        fetchUserDetails {
+            taskDone()
+        }
+
+        fetchUserProducts {
+            taskDone()
+        }
+
+}
+
+    private fun fetchUserDetails(onComplete: () -> Unit) {
+        var tasksRemaining = 3
+
+        fun taskDone() {
+            tasksRemaining--
+            if (tasksRemaining == 0) {
+                onComplete()
+            }
+        }
+
+        // --- 1. Fetch user info ---
         usersRef.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val username = snapshot.child("username").getValue(String::class.java)
                 val email = snapshot.child("email").getValue(String::class.java)
                 val address = snapshot.child("localeaddress").getValue(String::class.java)
                 val phone = snapshot.child("phonenumber").getValue(String::class.java)
-                val profilepic=snapshot.child("profilepic").getValue(String::class.java)
+                val profilepic = snapshot.child("profilepic").getValue(String::class.java)
 
                 binding.username.text = username ?: "N/A"
                 binding.email.text = email ?: "N/A"
                 binding.address.text = address ?: "N/A"
 
-                if(profilepic?.isNotEmpty() == true) {
+                if (profilepic?.isNotEmpty() == true) {
                     Glide.with(this@ProfileActivity)
                         .load(profilepic)
                         .into(binding.profileImageView)
-                }
-                else{
+                } else {
                     binding.profileImageView.setImageResource(R.drawable.profile)
                 }
-
 
                 if (!phone.isNullOrEmpty()) {
                     binding.callButton.setOnClickListener {
@@ -91,14 +118,18 @@ class ProfileActivity : AppCompatActivity() {
                     binding.callButton.isEnabled = false
                     binding.messageButton.isEnabled = false
                 }
+
+                taskDone() // ✅ user info task done
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(this@ProfileActivity, "Failed to fetch user details", Toast.LENGTH_SHORT).show()
+                taskDone() // still call to avoid hanging the ProgressBar
             }
         })
 
-        val transactionRef = Firebase.database.reference.child("Transactions").child(userId)
+        // --- 2. Transactions task ---
+        val transactionRef = database.child("Transactions").child(userId)
         transactionRef.get().addOnSuccessListener { snapshot ->
             var count = 0
             for (child in snapshot.children) {
@@ -108,25 +139,26 @@ class ProfileActivity : AppCompatActivity() {
                 }
             }
 
-            binding.succesfultransaction.text="Succesful Sales ${count}"
+            binding.succesfultransaction.text = "Successful Sales $count"
+            taskDone() // ✅ transactions done
         }.addOnFailureListener {
             Toast.makeText(this@ProfileActivity, "Failed to retrieve transactions", Toast.LENGTH_SHORT).show()
+            taskDone() // still call to avoid hanging the ProgressBar
         }
 
-
+        // --- 3. Ratings task ---
         calculateAverageRating(userId) { averageRating ->
-            if(averageRating>0) {
+            if (averageRating > 0) {
                 binding.rating.text = "Rating: %.1f".format(averageRating)
-            }
-            else{
+            } else {
                 binding.rating.text = "No Ratings"
             }
+            taskDone() // ✅ rating done
         }
-
     }
 
-    fun calculateAverageRating(userId: String, onResult: (Float) -> Unit) {
-        val ref = FirebaseDatabase.getInstance().getReference("Transactions").child(userId)
+    private fun calculateAverageRating(userId: String, onResult: (Float) -> Unit) {
+        val ref = database.child("Transactions").child(userId)
 
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -155,23 +187,29 @@ class ProfileActivity : AppCompatActivity() {
             }
         })
     }
-
-
-
-    private fun fetchUserProducts() {
-        FirebaseDatabase.getInstance().reference
+    private fun fetchUserProducts(onComplete: () -> Unit) {
+        database
             .child("products")
             .child(userId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     productList.clear()
+                    var itemsProcessed = 0
+                    val totalItems = snapshot.children.count()
+
+                    if (totalItems == 0) {
+                        productList.clear()
+                        productAdapter.notifyDataSetChanged()
+                        onComplete()
+                        return
+                    }
 
                     for (productSnapshot in snapshot.children) {
                         val productId = productSnapshot.key
                         val product = productSnapshot.getValue(ProfileProduct::class.java)
 
                         if (product != null && productId != null) {
-                            Firebase.database.reference
+                            database
                                 .child("Bids")
                                 .child(userId)
                                 .child(productId)
@@ -180,7 +218,6 @@ class ProfileActivity : AppCompatActivity() {
                                         val bidValue = bidSnapshot.child("currenthighestbid").value?.toString()
                                         val currenthighestbid = if (!bidValue.isNullOrEmpty()) bidValue.toInt() else 0
 
-                                        // Add product only after bid is loaded
                                         productList.add(
                                             ProfileProduct(
                                                 userId,
@@ -197,19 +234,35 @@ class ProfileActivity : AppCompatActivity() {
                                             )
                                         )
 
-                                        productAdapter.notifyDataSetChanged()
+                                        itemsProcessed++
+                                        if (itemsProcessed == totalItems) {
+                                            productAdapter.notifyDataSetChanged()
+                                            onComplete()
+                                        }
+
                                     }
 
                                     override fun onCancelled(error: DatabaseError) {
                                         Toast.makeText(this@ProfileActivity, "Failed to fetch bid", Toast.LENGTH_SHORT).show()
+                                        onComplete()
                                     }
+
                                 })
+                        } else {
+                            itemsProcessed++
+                            if (itemsProcessed == totalItems) {
+                                productAdapter.notifyDataSetChanged()
+                                onComplete()
+
+                            }
                         }
                     }
                 }
 
+
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(this@ProfileActivity, "Failed to fetch products", Toast.LENGTH_SHORT).show()
+                    onComplete()
                 }
             })
     }

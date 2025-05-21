@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
@@ -17,6 +18,8 @@ import com.example.finalyearprojectwithfirebase.R
 import com.example.finalyearprojectwithfirebase.activities.ProfileActivity
 import com.example.finalyearprojectwithfirebase.databinding.BiditemBinding
 import com.example.finalyearprojectwithfirebase.model.BidProduct
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -33,13 +36,11 @@ class BidAdapter(
     private val onDeleteClick: (BidProduct) -> Unit
 ) : RecyclerView.Adapter<BidAdapter.BidViewHolder>() {
 
-    var viewholder:BidViewHolder?=null
-
-    private var currentProfilePicUrl: String = ""
+    private val database = FirebaseDatabase.getInstance().reference
+    private val userid=FirebaseAuth.getInstance().currentUser?.uid
+    private var currentProductPicUrl: String = ""
 
     inner class BidViewHolder( var binding: BiditemBinding) : RecyclerView.ViewHolder(binding.root)
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BidViewHolder {
         // Inflate the layout using ViewBinding
@@ -51,7 +52,6 @@ class BidAdapter(
 
     override fun onBindViewHolder(holder: BidViewHolder, position: Int) {
         val bidProduct = bidList[position]
-        viewholder=holder
 
         // Set data to the views using ViewBinding
         holder.binding.tvCartProductName.text = bidProduct.name
@@ -65,30 +65,17 @@ class BidAdapter(
 
 
         var token=false
-        if (bidresult.toBoolean() && !bidstatus) {
+        if (bidresult == "true" && !bidstatus){
             token = true
             holder.binding.eligibleforcontact.text = "You Won the auction"
 
-            checkuseralreadyrespondornot(bidProduct.sellerId, bidProduct.productId) { alreadyResponded ->
-                if (!alreadyResponded) {
-                    holder.binding.transactionComplete.isEnabled = true
-                    holder.binding.transactionnotComplete.isEnabled = true
-                } else {
-                    holder.binding.transactionComplete.isEnabled = false
-                    holder.binding.transactionnotComplete.isEnabled = false
-                }
-            }
+            holder.binding.transactionComplete.isEnabled = false
+            holder.binding.transactionnotComplete.isEnabled = false
 
-        } else if (!bidresult.toBoolean() && bidstatus) {
-            holder.binding.eligibleforcontact.text = "Not Declared"
-        } else if (!bidresult.toBoolean() && !bidstatus) {
+            loadbtnstatus(bidProduct, holder)
+
+        } else if (bidresult == "false" && !bidstatus) {
             holder.binding.eligibleforcontact.text = "You have lost the Auction"
-        }
-        else if(!bidresult.toBoolean() && bidstatus ){
-            holder.binding.eligibleforcontact.text="Not Declared"
-        }
-        else if(!bidresult.toBoolean() && !bidstatus){
-            holder.binding.eligibleforcontact.text="You have lost the Auction"
         }
 
         if(bidstatus){
@@ -98,27 +85,23 @@ class BidAdapter(
             holder.binding.bidstatus.text="Bidding is Closed"
         }
 
+        loadcurrentbid(bidProduct,holder)
 
-
-        currentProfilePicUrl=bidProduct.image
-
-        if(currentProfilePicUrl.isNotEmpty()){
+        currentProductPicUrl=bidProduct.image
+        if(currentProductPicUrl.isNotEmpty()){
             Glide
                 .with(context)
-                .load(currentProfilePicUrl)
+                .load(currentProductPicUrl)
                 .into(holder.binding.tvCartProductImage)
         }
-
         holder.binding.tvCartProductImage.setOnClickListener{
-            showFullScreenDialog(currentProfilePicUrl)
+            showFullScreenDialog(currentProductPicUrl)
         }
-
         // Set the click listener on the remove button
         holder.binding.removefrombidbtn.setOnClickListener {
-
                 AlertDialog.Builder(context)
                     .setTitle("Remove Item")
-                    .setMessage("Do you want to  this Item?")
+                    .setMessage("Do you want to remove this Item?")
                     .setPositiveButton("Yes") { _, _ ->
                         onDeleteClick(bidProduct)
                     }
@@ -126,9 +109,7 @@ class BidAdapter(
                         dialog.dismiss()
                     }
                     .show()
-
         }
-
 
         holder.binding.root.setOnClickListener{
                 val intent = Intent(context, ProfileActivity::class.java)
@@ -138,74 +119,72 @@ class BidAdapter(
         }
 
         holder.binding.transactionComplete.setOnClickListener{
-            showRatingDialog(bidProduct.sellerId,"Successful",bidProduct.productId)
+            showRatingDialog(bidProduct.sellerId,"Successful",bidProduct.productId,holder)
+            holder.binding.transactionComplete.isEnabled=false
+            holder.binding.removefrombidbtn.isEnabled=true
         }
         holder.binding.transactionnotComplete.setOnClickListener{
-            showRatingDialog(bidProduct.sellerId,"Canceled",bidProduct.productId)
+            showRatingDialog(bidProduct.sellerId,"Canceled",bidProduct.productId,holder)
+            holder.binding.transactionnotComplete.isEnabled=false
+            holder.binding.removefrombidbtn.isEnabled=true
         }
 
-
-
-        Firebase.database.reference
-            .child("Bids")
-            .child(bidProduct.sellerId)
-            .child(bidProduct.productId)
-            .addValueEventListener(object:ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val currentbhishestbid=snapshot.child("currenthighestbid").value
-                    holder.binding.currenthishestbid.text="Current Bid: ₹${currentbhishestbid}"
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    holder.binding.currenthishestbid.text="Not Available"
-                }
-
-            })
     }
 
-
-    private fun checkuseralreadyrespondornot(sellerid: String,productId: String,callback: (Boolean) -> Unit){
-        var responded = false
-        val transRef = FirebaseDatabase.getInstance().getReference("Transactions")
-        val sellerId = sellerid
-        val buyerId = Firebase.auth.currentUser?.uid
-        val targetProductId = productId
-
-        transRef.child(sellerId)
+    private fun loadcurrentbid(bidProduct:BidProduct,holder:BidViewHolder){
+        database.child("Bids").child(bidProduct.sellerId).child(bidProduct.productId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if(snapshot.exists()) {
-                        for (transactionSnapshot in snapshot.children) {
-                            val storedBuyerId =
-                                transactionSnapshot.child("buyerId").getValue(String::class.java)
-                            val productId =
-                                transactionSnapshot.child("productId").getValue(String::class.java)
-                            val status =
-                                transactionSnapshot.child("status").getValue(String::class.java)
-
-                            if (storedBuyerId == buyerId &&
-                                productId == targetProductId &&
-                                (status.equals(
-                                    "Successful",
-                                    ignoreCase = true
-                                ) || status.equals("Canceled", ignoreCase = true))
-                            ) {
-                                responded = true
-                                break
-                            }
-                        }
-                    }
-                    callback(responded)
+                    val currentHighestBid = snapshot.child("currenthighestbid").value
+                    holder.binding.currenthishestbid.text = "Current Bid: ₹${currentHighestBid}"
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(context, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
+                    holder.binding.currenthishestbid.text = "Not Available"
                 }
             })
-
     }
 
-    private fun showRatingDialog(sellerId: String,status:String,productId:String) {
+
+    private fun loadbtnstatus(product:BidProduct,holder: BidViewHolder){
+        checkuseralreadyratedornot(product.productId, product.sellerId) { alreadyRated ->
+            if(!alreadyRated){
+                holder.binding.transactionComplete.isEnabled=true
+                holder.binding.transactionnotComplete.isEnabled=true
+            }
+            else{
+                holder.binding.removefrombidbtn.isEnabled=true
+            }
+        }
+    }
+
+    private fun checkuseralreadyratedornot(productid: String, sellerid: String, callback: (Boolean) -> Unit) {
+        var rated = false
+
+        val transactionsRef = database.child("Transactions").child(sellerid)
+
+        transactionsRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()) {
+                    for (data in snapshot.children) {
+                        val buyerfromdb = data.child("buyerId").getValue(String::class.java)
+                        val productFromDb = data.child("productId").getValue(String::class.java)
+                        if (buyerfromdb == userid && productFromDb == productid) {
+                            rated = true
+                            break
+                        }
+                    }
+                }
+                callback(rated)
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Firebase", "Database error: ${error.message}")
+                callback(rated)
+            }
+        })
+    }
+
+    private fun showRatingDialog(sellerId: String,status:String,productId:String,holder:BidViewHolder) {
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.dialog_rate_seller)
         dialog.setCancelable(false)
@@ -219,7 +198,7 @@ class BidAdapter(
             if (ratingStr.isNotEmpty()) {
                 val rating = ratingStr.toFloatOrNull()
                 if (rating != null && rating in 0.0..5.0) {
-                    rateSellerInDatabase(sellerId, rating,status,productId)
+                    rateSellerInDatabase(sellerId, rating,status,productId,holder)
                     dialog.dismiss()
                 } else {
                     Toast.makeText(context, "Please enter a valid rating between 0 and 5", Toast.LENGTH_SHORT).show()
@@ -228,25 +207,19 @@ class BidAdapter(
                 Toast.makeText(context, "Rating cannot be empty", Toast.LENGTH_SHORT).show()
             }
         }
-
         cancelButton.setOnClickListener {
             dialog.dismiss()
         }
-
         dialog.show()
     }
 
 
-    private fun rateSellerInDatabase(sellerid:String,rating:Float,status:String,productId:String){
+    private fun rateSellerInDatabase(sellerid:String,rating:Float,status:String,productId:String,holder:BidViewHolder){
 
         val currentuserid=Firebase.auth.currentUser?.uid
         val TransactionRef = sellerid.let {
-            com.google.firebase.Firebase.database.reference
-                .child("Transactions")
-                .child(it)
-                .push()
+            database.child("Transactions").child(it).push()
         }
-
 
         val transactionitem = mapOf(
             "buyerId" to currentuserid,
@@ -255,14 +228,11 @@ class BidAdapter(
             "status" to status,
             "rating" to rating
         )
-
         TransactionRef.setValue(transactionitem)
             .addOnSuccessListener {
                 Toast.makeText(context, "Thank u For the status update", Toast.LENGTH_SHORT).show()
-                viewholder?.binding?.transactionComplete?.isEnabled=false
-                viewholder?.binding?.transactionnotComplete?.isEnabled=false
-                viewholder?.binding?.removefrombidbtn?.isEnabled=true
-
+                holder.binding.transactionComplete.isEnabled=false
+                holder.binding.transactionnotComplete.isEnabled=false
             }
             .addOnFailureListener {
                 Toast.makeText(context, "Failed to update the status", Toast.LENGTH_SHORT).show()
@@ -283,8 +253,6 @@ class BidAdapter(
         closeButton.setOnClickListener {
             dialog.dismiss()
         }
-
-
         dialog.show()
     }
 }

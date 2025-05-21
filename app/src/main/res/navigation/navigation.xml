@@ -16,10 +16,10 @@
         android:label="fragment_sell"
         tools:layout="@layout/fragment_sell" />
     <fragment
-        android:id="@+id/buy"
-        android:name="com.example.finalyearprojectwithfirebase.fragments.BuyFragment"
-        android:label="fragment_buy"
-        tools:layout="@layout/fragment_buy" />
+        android:id="@+id/wishlist"
+        android:name="com.example.finalyearprojectwithfirebase.fragments.WishListFragment"
+        android:label="fragment_wishlist"
+        tools:layout="@layout/fragment_wishlist" />
     <fragment
         android:id="@+id/mandibhav"
         android:name="com.example.finalyearprojectwithfirebase.fragments.MandiBhavFragment"

@@ -1,7 +1,5 @@
 package com.example.finalyearprojectwithfirebase.network
 
-
-
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri

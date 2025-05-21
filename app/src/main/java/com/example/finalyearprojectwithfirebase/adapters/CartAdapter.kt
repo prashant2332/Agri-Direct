@@ -16,6 +16,7 @@ import com.example.finalyearprojectwithfirebase.databinding.CartitemBinding
 import com.example.finalyearprojectwithfirebase.model.CartProduct
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -26,11 +27,10 @@ class CartAdapter(
     private val onDeleteClick: (CartProduct) -> Unit
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
-    private var currentProfilePicUrl: String = ""
+    private var currentProductPicUrl: String = ""
+    private val database=FirebaseDatabase.getInstance().reference
 
     inner class CartViewHolder( var binding: CartitemBinding) : RecyclerView.ViewHolder(binding.root)
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         // Inflate the layout using ViewBinding
@@ -51,24 +51,16 @@ class CartAdapter(
         holder.binding.tvCartPrice.text = "₹${cartProduct.price}"
 
         val bidstatus=cartProduct.isbiddingenabled
-        Firebase.database.reference
-            .child("Bids")
-            .child(cartProduct.sellerId)
-            .child(cartProduct.productId)
-            .addValueEventListener(object: ValueEventListener {
+        database.child("Bids").child(cartProduct.sellerId).child(cartProduct.productId)
+            .addListenerForSingleValueEvent(object: ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val currentbhighestbid=snapshot.child("currenthighestbid").value
-
                     holder.binding.currenthighestbid.text="Current Bid: ₹${currentbhighestbid}"
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     holder.binding.currenthighestbid.text="Current Bid: Not Available"
                 }
-
             })
-
-
 
         if(bidstatus){
             holder.binding.bidstatus.text="Bidding is Open"
@@ -77,23 +69,19 @@ class CartAdapter(
             holder.binding.bidstatus.text="Bidding is Closed"
         }
 
-
-        currentProfilePicUrl=cartProduct.image
-
-        if(currentProfilePicUrl.isNotEmpty()){
+        currentProductPicUrl=cartProduct.image
+        if(currentProductPicUrl.isNotEmpty()){
             Glide
                 .with(context)
-                .load(currentProfilePicUrl)
+                .load(currentProductPicUrl)
                 .into(holder.binding.tvCartProductImage)
         }
 
         holder.binding.tvCartProductImage.setOnClickListener{
-            showFullScreenDialog(currentProfilePicUrl)
+            showFullScreenDialog(currentProductPicUrl)
         }
-
         // Set the click listener on the remove button
         holder.binding.removefromcartbtn.setOnClickListener {
-
                 AlertDialog.Builder(context)
                     .setTitle("Delete Cart Item")
                     .setMessage("Do you want to delete this Item?")
@@ -104,14 +92,12 @@ class CartAdapter(
                         dialog.dismiss()
                     }
                     .show()
-
         }
-
+        // Set the click listener on whole item
         holder.binding.root.setOnClickListener{
             val intent= Intent(context,ProfileActivity::class.java)
             intent.putExtra("USER_ID",cartProduct.sellerId)
             context.startActivity(intent)
-
         }
     }
 
@@ -125,12 +111,9 @@ class CartAdapter(
         if (imageUrl.isNotEmpty()){
             Glide.with(context).load(imageUrl).into(fullscreenImageView)
         }
-
         closeButton.setOnClickListener {
             dialog.dismiss()
         }
-
-
         dialog.show()
     }
 }

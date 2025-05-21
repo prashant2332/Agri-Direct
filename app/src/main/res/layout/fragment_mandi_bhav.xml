@@ -39,6 +39,7 @@
                     android:id="@+id/productname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.cardview.widget.CardView>
@@ -85,7 +86,7 @@
                     android:id="@+id/district"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                     />
+                    android:fontFamily="@font/poppins_regular" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.cardview.widget.CardView>
 
@@ -94,14 +95,15 @@
             android:id="@+id/searchpricebtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search"
-            app:cornerRadius="5dp"
-            app:icon="@drawable/vectorsearch"
-            android:textColor="@android:color/white"
             android:layout_marginBottom="24dp"
             android:backgroundTint="@color/button_tint_selector"
+            android:elevation="10dp"
+            android:fontFamily="@font/poppins_regular"
             android:paddingHorizontal="32dp"
-            android:elevation="10dp" />
+            android:text="Search"
+            android:textColor="@android:color/white"
+            app:cornerRadius="5dp"
+            app:icon="@drawable/vectorsearch" />
 
         <!-- RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView

@@ -6,14 +6,15 @@
     android:layout_height="wrap_content"
     card_view:cardElevation="12dp"
     card_view:cardCornerRadius="20dp"
-    android:layout_margin="12dp"
+    android:layout_margin="10dp"
     android:backgroundTint="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="5dp"
+        >
 
         <ImageView
             android:id="@+id/tvCartProductImage"
@@ -38,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Product Name"
+                android:fontFamily="@font/poppins_regular"
                 android:typeface="sans"
                 android:textStyle="bold"
                 android:textSize="20sp"
@@ -48,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Variety"
+                android:fontFamily="@font/poppins_regular"
                 android:textColor="#0A2E2E"
                 android:textSize="14sp"
                 android:typeface="sans" />
@@ -56,25 +59,28 @@
                 android:id="@+id/tvCartQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
                 android:text="Quantity"
-                android:typeface="sans"
+                android:textColor="@color/productvarietycolor"
                 android:textSize="14sp"
-                android:textColor="@color/productvarietycolor" />
+                android:typeface="sans" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvCartUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
                 android:text="Unit"
-                android:typeface="sans"
+                android:textColor="@color/productvarietycolor"
                 android:textSize="14sp"
-                android:textColor="@color/productvarietycolor" />
+                android:typeface="sans" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvCartPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:fontFamily="@font/poppins_regular"
                 android:text="₹0"
                 android:textColor="@color/productnamecolor"
                 android:textSize="16sp"
@@ -85,71 +91,77 @@
                 android:id="@+id/currenthishestbid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/poppins_regular"
                 android:text="Current Bid: ₹0"
-                android:textSize="15sp"
                 android:textColor="@color/currentbidcolor"
-                android:typeface="sans"
-                android:layout_marginTop="4dp" />
+                android:textSize="15sp"
+                android:typeface="sans" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/bidstatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/poppins_regular"
                 android:text="Bid Status: Active"
-                android:textSize="15sp"
                 android:textColor="@color/bidstatuscolor"
+                android:textSize="15sp"
                 android:textStyle="bold"
-                android:typeface="sans"
-                android:layout_marginTop="2dp" />
+                android:typeface="sans" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/eligibleforcontact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Auction Result"
-                android:typeface="sans"
-                android:textSize="16sp"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Auction Result: N/A"
                 android:textColor="#3D0585"
-                android:layout_marginTop="2dp" />
+                android:textSize="16sp"
+                android:typeface="sans" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/removefrombidbtn"
-                android:layout_width="wrap_content"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
-                android:text="Remove from Bids"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
-                android:elevation="10dp"
+                android:layout_marginTop="8dp"
                 android:backgroundTint="@color/button_tint_selector"
-                android:typeface="sans"
+                android:elevation="10dp"
                 android:enabled="false"
-                android:layout_marginTop="8dp" />
+                android:fontFamily="@font/poppins_regular"
+                android:text="Remove from Bids"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:typeface="sans" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/transactionComplete"
-                android:layout_width="wrap_content"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:backgroundTint="@color/button_tint_selector"
-                android:textColor="@color/white"
-                android:text="Successful Transaction"
-                android:typeface="sans"
-                android:textAllCaps="false"
                 android:elevation="10dp"
                 android:enabled="false"
-                android:layout_marginTop="6dp" />
+                android:fontFamily="@font/poppins_regular"
+                android:text="Successful Transaction"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:typeface="sans" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/transactionnotComplete"
-                android:layout_width="wrap_content"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
-                android:text="Canceled Transaction"
+                android:layout_marginTop="6dp"
                 android:backgroundTint="@color/button_tint_selector"
-                android:typeface="sans"
                 android:elevation="10dp"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
                 android:enabled="false"
-                android:layout_marginTop="6dp" />
+                android:fontFamily="@font/poppins_regular"
+                android:text="Canceled Transaction"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:typeface="sans" />
 
         </LinearLayout>
     </LinearLayout>

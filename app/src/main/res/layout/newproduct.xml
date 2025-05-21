@@ -1,160 +1,187 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<androidx.cardview.widget.CardView
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@drawable/gradient_overlay"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <LinearLayout
-        android:orientation="vertical" android:padding="16dp"
+    <ScrollView
         android:layout_width="match_parent"
-
+        android:orientation="vertical"
+        android:background="@drawable/gradient_overlay"
         android:layout_height="wrap_content">
-
-        <androidx.cardview.widget.CardView
+        <LinearLayout
+            android:orientation="vertical" android:padding="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="4dp"
-            android:layout_marginBottom="10dp"
-            app:cardCornerRadius="8dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Product Name">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etProductName"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:typeface="sans" />
-        </com.google.android.material.textfield.TextInputLayout>
-        </androidx.cardview.widget.CardView>
+                app:cardElevation="4dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="8dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white"
+                    android:hint="Product Name">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="4dp"
-            android:layout_marginBottom="10dp"
-            app:cardCornerRadius="8dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etProductName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="text"
+                        android:typeface="sans" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
 
-            android:hint="Variety">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etVariety"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:typeface="sans" />
-        </com.google.android.material.textfield.TextInputLayout>
-        </androidx.cardview.widget.CardView>
+                app:cardElevation="4dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="8dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white"
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="4dp"
-            android:layout_marginBottom="10dp"
-            app:cardCornerRadius="8dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Quantity">
+                    android:hint="Variety">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etQuantity"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etVariety"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="text"
+                        android:typeface="sans" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:typeface="sans" />
-        </com.google.android.material.textfield.TextInputLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="4dp"
-            android:layout_marginBottom="10dp"
-            app:cardCornerRadius="8dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Unit">
+                app:cardElevation="4dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="8dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white"
+                    android:hint="Quantity">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etUnit"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etQuantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="numberDecimal"
+                        android:typeface="sans" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:typeface="sans" />
-        </com.google.android.material.textfield.TextInputLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="4dp"
-            android:layout_marginBottom="10dp"
-            app:cardCornerRadius="8dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Price">
+                app:cardElevation="4dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="8dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white"
+                    android:hint="Unit">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPrice"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etUnit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="text"
+                        android:typeface="sans" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:typeface="sans" />
-        </com.google.android.material.textfield.TextInputLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="8dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Minimum Quantity to Bid">
+                app:cardElevation="4dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="8dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white"
+                    android:hint="Price">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etminimumquantity"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="numberDecimal"
+                        android:typeface="sans" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:typeface="sans" />
-        </com.google.android.material.textfield.TextInputLayout>
-        </androidx.cardview.widget.CardView>
+                app:cardElevation="4dp"
+                app:cardCornerRadius="8dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white"
+                    android:layout_height="wrap_content"
+                    android:hint="Minimum Quantity to Bid">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etminimumquantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="numberDecimal"
+                        android:typeface="sans" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
 
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnUploadImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:backgroundTint="@color/button_tint_selector"
+                android:elevation="10dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Upload Image"
+                android:textColor="@android:color/white"
+                app:cornerRadius="8dp" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnUploadImage"
-            android:text="Upload Image"
-            android:layout_marginTop="15dp"
-            android:backgroundTint="@color/button_tint_selector"
-            android:textColor="@android:color/white"
-            app:cornerRadius="8dp"
-            android:elevation="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/imagetakenornot"/>
+            <TextView
+                android:id="@+id/imagetakenornot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAddProduct"
-            android:text="Add Product"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/button_tint_selector"
-            android:textColor="@android:color/white"
-            app:cornerRadius="8dp"
-            android:elevation="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/button_tint_selector"
+                android:elevation="10dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Add Product"
+                android:textColor="@android:color/white"
+                app:cornerRadius="8dp" />
 
-    </LinearLayout>
-</ScrollView>
+        </LinearLayout>
+    </ScrollView>
+</androidx.cardview.widget.CardView>
+
+
 

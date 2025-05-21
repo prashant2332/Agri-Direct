@@ -25,6 +25,7 @@ import com.example.finalyearprojectwithfirebase.databinding.FragmentMyProfileBin
 import com.example.finalyearprojectwithfirebase.network.FileUtils
 import com.example.finalyearprojectwithfirebase.network.RetrofitClient
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -43,16 +44,15 @@ class MyProfileFragment : Fragment() {
     private val binding:FragmentMyProfileBinding by lazy {
         FragmentMyProfileBinding.inflate(layoutInflater)
     }
-
     private var cameraImageUri: Uri? = null
-
     private var currentProfilePicUrl: String = ""
 
+    private val databaserefernce=FirebaseDatabase.getInstance().reference
+    private val userid=FirebaseAuth.getInstance().currentUser?.uid
 
     private val pickFromGallery =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
-
                 uploadImageToCloudinary(it)
             }
         }
@@ -64,32 +64,20 @@ class MyProfileFragment : Fragment() {
             }
         }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         fetchuserdetails()
 
         binding.editprofiledetails.setOnClickListener{
             showEditProfileDialog()
         }
-
         binding.profilePhoto.setOnClickListener{
             showFullScreenDialog(currentProfilePicUrl)
         }
-
-
-
         binding.editprofilephoto.setOnClickListener{
             showImagePickDialog()
         }
         binding.removeprofilephoto.setOnClickListener{
-
             context?.let { context ->
                 AlertDialog.Builder(context)
                     .setTitle("Remove Profile Photo")
@@ -101,72 +89,63 @@ class MyProfileFragment : Fragment() {
                     .show()
             }
         }
-
-
+        requestcamerapermissions()
+        return binding.root
+    }
+    private fun requestcamerapermissions(){
         // Request camera permission
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
             != PackageManager.PERMISSION_GRANTED
         ) {
             requestPermissions(arrayOf(Manifest.permission.CAMERA), 100)
         }
-
-
-
-        return binding.root
     }
-
-
 
     private fun removeprofilepic(){
-        Firebase.auth.currentUser?.uid?.let {
-            Firebase.database.reference
-                .child("Users")
-                .child(it)
-                .child("profilepic")
-                .setValue("")
+        userid?.let {
+            databaserefernce.child("Users").child(it).child("profilepic").setValue("")
         }
-
         fetchuserdetails()
     }
+
     private fun fetchuserdetails(){
-        Firebase.database.reference
-            .child("Users")
-            .child(Firebase.auth.currentUser?.uid!!)
-            .get()
-            .addOnSuccessListener { snapshot ->
-                // Set the values for each field in the profile using view binding
-                binding.email.text = snapshot.child("email").value?.toString() ?: "NA"
-                binding.phonenumber.text = snapshot.child("phonenumber").value?.toString() ?: "NA"
-                binding.state.text = snapshot.child("state").value?.toString() ?: "NA"
-                binding.district.text = snapshot.child("district").value?.toString() ?: "NA"
-                binding.address.text = snapshot.child("localeaddress").value?.toString() ?: "NA"
-                binding.profileUsername.text = snapshot.child("username").value?.toString() ?: "NA"
 
-                val profilepicurl=snapshot.child("profilepic").value?.toString() ?: ""
-                currentProfilePicUrl = profilepicurl
+        if (userid != null) {
+            databaserefernce.child("Users").child(userid)
+                .get()
+                .addOnSuccessListener { snapshot ->
 
-                binding.progressBar.visibility=View.GONE
-                if(profilepicurl.isNotEmpty()){
+                    binding.email.text = snapshot.child("email").value?.toString() ?: "NA"
+                    binding.phonenumber.text = snapshot.child("phonenumber").value?.toString() ?: "NA"
+                    binding.state.text = snapshot.child("state").value?.toString() ?: "NA"
+                    binding.district.text = snapshot.child("district").value?.toString() ?: "NA"
+                    binding.address.text = snapshot.child("localeaddress").value?.toString() ?: "NA"
+                    binding.profileUsername.text = snapshot.child("username").value?.toString() ?: "NA"
 
-                    Glide.with(requireContext())
-                        .load(profilepicurl)
-                        .into(binding.profilePhoto)
+                    val profilepicurl=snapshot.child("profilepic").value?.toString() ?: ""
+                    currentProfilePicUrl = profilepicurl
 
+                    if(profilepicurl.isNotEmpty()){
+                        Glide.with(requireContext())
+                            .load(profilepicurl)
+                            .into(binding.profilePhoto)
+                    }
+                    else{
+                        binding.profilePhoto.setImageResource(R.drawable.profile)
+                    }
+
+                    binding.progressBar.visibility=View.GONE
+
+                }.addOnFailureListener {
+                    // Handle failure to fetch data (optional, show a Toast or error message)
+                    Toast.makeText(requireContext(), "could not fetch data", Toast.LENGTH_SHORT).show()
+                    binding.progressBar.visibility=View.GONE
                 }
-                else{
-                    binding.profilePhoto.setImageResource(R.drawable.profile)
-                }
+        }
 
-            }.addOnFailureListener {
-                // Handle failure to fetch data (optional, show a Toast or error message)
-                Toast.makeText(requireContext(), "could not fetch data", Toast.LENGTH_SHORT).show()
+        val transactionRef = userid?.let { databaserefernce.child("Transactions").child(it) }
 
-            }
-        val transactionRef = Firebase.database.reference
-            .child("Transactions")
-            .child(Firebase.auth.currentUser?.uid!!)
-
-        transactionRef.get().addOnSuccessListener { snapshot ->
+        transactionRef?.get()?.addOnSuccessListener { snapshot ->
             var count = 0
             for (child in snapshot.children) {
                 val status = child.child("status").getValue(String::class.java)
@@ -175,29 +154,27 @@ class MyProfileFragment : Fragment() {
                 }
             }
             binding.succesfultransaction.text="${count}"
-        }.addOnFailureListener {
+        }?.addOnFailureListener {
             Toast.makeText(context, "Failed to retrieve transactions", Toast.LENGTH_SHORT).show()
         }
-
-        calculateAverageRating(Firebase.auth.currentUser?.uid!!) { averageRating ->
-            if(averageRating>0) {
-                binding.myrating.text = "%.1f".format(averageRating)
-            }
-            else{
-                binding.myrating.text = "No Ratings Found"
+        if (userid != null) {
+            calculateAverageRating(userid) { averageRating ->
+                if(averageRating>0) {
+                    binding.myrating.text = "%.1f".format(averageRating)
+                }
+                else{
+                    binding.myrating.text = "No Ratings Found"
+                }
             }
         }
-
     }
 
     fun calculateAverageRating(userId: String, onResult: (Float) -> Unit) {
-        val ref = FirebaseDatabase.getInstance().getReference("Transactions").child(userId)
-
+        val ref = databaserefernce.child("Transactions").child(userId)
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var totalRating = 0f
                 var count = 0
-
                 for (transactionSnapshot in snapshot.children) {
                     val rating = transactionSnapshot.child("rating").getValue(Float::class.java)
                     if (rating != null) {
@@ -205,7 +182,6 @@ class MyProfileFragment : Fragment() {
                         count++
                     }
                 }
-
                 if (count > 0) {
                     val average = totalRating / count
                     onResult(average)
@@ -213,9 +189,7 @@ class MyProfileFragment : Fragment() {
                     onResult(0f) // No ratings found
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
-                Log.e("Firebase", "Failed to fetch ratings: ${error.message}")
                 onResult(0f)
             }
         })
@@ -258,7 +232,7 @@ class MyProfileFragment : Fragment() {
                     && updatedState.isNotEmpty()
                     && updatedDistrict.isNotEmpty()
                     && updatedAddress.isNotEmpty()) {
-                    updateProfileInDatabase(Firebase.auth.currentUser?.uid!!, updatedUsername, updatedPhone, updatedState, updatedDistrict, updatedAddress)
+                    updateProfileInDatabase(updatedUsername, updatedPhone, updatedState, updatedDistrict, updatedAddress)
                     fetchuserdetails()
                 } else {
                     Toast.makeText(requireContext(), "Please fill in all required fields", Toast.LENGTH_SHORT).show()
@@ -266,7 +240,6 @@ class MyProfileFragment : Fragment() {
             }
             .setNegativeButton("Cancel", null)
             .create()
-
         dialog.show()
     }
 
@@ -290,12 +263,10 @@ class MyProfileFragment : Fragment() {
             put(MediaStore.Images.Media.TITLE, "New Picture")
             put(MediaStore.Images.Media.DESCRIPTION, "From Camera")
         }
-
         cameraImageUri = requireContext().contentResolver.insert(
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
             values
         )
-
         takePhotoFromCamera.launch(cameraImageUri)
     }
 
@@ -310,7 +281,6 @@ class MyProfileFragment : Fragment() {
             try {
                 val response = RetrofitClient.api.uploadImage(body, preset)
                 val imageUrl = response.secure_url
-
                 Firebase.auth.currentUser?.uid?.let {
                     Firebase.database.reference
                         .child("Users")
@@ -325,28 +295,15 @@ class MyProfileFragment : Fragment() {
                             Toast.makeText(requireContext(), "Update failed", Toast.LENGTH_SHORT).show()
                         }
                 }
-
-
             } catch (e: Exception) {
                 e.printStackTrace()
                 Toast.makeText(requireContext(), "Update Failed", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
-
     // Update Profile in Firebase Database
-    private fun updateProfileInDatabase(
-        currentUserId: String,
-        username: String,
-        phone: String,
-        state: String,
-        district: String,
-        address: String
-    ) {
-        val userRef = FirebaseDatabase.getInstance().reference.child("Users").child(currentUserId)
-
-        // Prepare the updated user data
+    private fun updateProfileInDatabase(username: String, phone: String, state: String, district: String, address: String) {
+        val userRef = userid?.let { databaserefernce.child("Users").child(it) }
         val updatedUserData = mapOf(
             "username" to username,
             "phone" to phone,
@@ -354,13 +311,9 @@ class MyProfileFragment : Fragment() {
             "district" to district,
             "localeaddress" to address
         )
-
-        // Update Firebase Database
-        userRef.updateChildren(updatedUserData).addOnCompleteListener { task ->
+        userRef?.updateChildren(updatedUserData)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(requireContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show()
-
-
             } else {
                 Toast.makeText(requireContext(), "Failed to update profile", Toast.LENGTH_SHORT).show()
             }
@@ -373,23 +326,15 @@ class MyProfileFragment : Fragment() {
 
         val fullscreenImageView = dialog.findViewById<ImageView>(R.id.fullscreenImageView)
         val closeButton = dialog.findViewById<ImageView>(R.id.closeButton)
-
-
-        Log.d("img",imageUrl)
         if (imageUrl.isNotEmpty()){
             Glide.with(requireContext()).load(imageUrl).into(fullscreenImageView)
         }
         else{
             fullscreenImageView.setImageResource(R.drawable.profile)
         }
-
         closeButton.setOnClickListener {
             dialog.dismiss()
         }
-
-
         dialog.show()
     }
-
-
 }

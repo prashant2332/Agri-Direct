@@ -11,12 +11,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -32,12 +35,15 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import java.io.InputStreamReader
 
 class MyProfileFragment : Fragment() {
 
@@ -109,8 +115,8 @@ class MyProfileFragment : Fragment() {
     }
 
     private fun fetchuserdetails(){
-
         if (userid != null) {
+
             databaserefernce.child("Users").child(userid)
                 .get()
                 .addOnSuccessListener { snapshot ->
@@ -121,23 +127,17 @@ class MyProfileFragment : Fragment() {
                     binding.district.text = snapshot.child("district").value?.toString() ?: "NA"
                     binding.address.text = snapshot.child("localeaddress").value?.toString() ?: "NA"
                     binding.profileUsername.text = snapshot.child("username").value?.toString() ?: "NA"
-
                     val profilepicurl=snapshot.child("profilepic").value?.toString() ?: ""
-                    currentProfilePicUrl = profilepicurl
 
+                    currentProfilePicUrl = profilepicurl
                     if(profilepicurl.isNotEmpty()){
-                        Glide.with(requireContext())
-                            .load(profilepicurl)
-                            .into(binding.profilePhoto)
+                        Glide.with(requireContext()).load(profilepicurl).into(binding.profilePhoto)
                     }
                     else{
                         binding.profilePhoto.setImageResource(R.drawable.profile)
                     }
-
                     binding.progressBar.visibility=View.GONE
-
                 }.addOnFailureListener {
-                    // Handle failure to fetch data (optional, show a Toast or error message)
                     Toast.makeText(requireContext(), "could not fetch data", Toast.LENGTH_SHORT).show()
                     binding.progressBar.visibility=View.GONE
                 }
@@ -197,15 +197,48 @@ class MyProfileFragment : Fragment() {
 
     // Show Dialog for Editing Profile
     private fun showEditProfileDialog() {
+
         // Inflate the dialog's layout with EditTexts for user input
         val dialogView = layoutInflater.inflate(R.layout.editprofiledetails, null)
+        val statesAndDistricts: Map<String, List<String>>
 
         // Find EditTexts in dialog layout
         val usernameEditText = dialogView.findViewById<EditText>(R.id.editUsername)
         val phoneEditText = dialogView.findViewById<EditText>(R.id.editPhone)
-        val stateEditText = dialogView.findViewById<EditText>(R.id.editState)
-        val districtEditText = dialogView.findViewById<EditText>(R.id.editDistrict)
+        val stateEditText = dialogView.findViewById<AutoCompleteTextView>(R.id.editState)
+        val districtEditText = dialogView.findViewById<AutoCompleteTextView>(R.id.editDistrict)
         val addressEditText = dialogView.findViewById<EditText>(R.id.editAddress)
+
+        districtEditText.isEnabled = false
+        districtEditText.alpha = 0.5f
+
+        // Load state and district data from assets
+        val inputStream = requireContext().assets.open("statesanddistricts.json")
+        val reader = InputStreamReader(inputStream)
+        val type = object : TypeToken<Map<String, List<String>>>() {}.type
+        statesAndDistricts = Gson().fromJson(reader, type)
+
+        // Populate state dropdown
+        val stateNames = statesAndDistricts.keys.toList()
+        val stateAdapter = ArrayAdapter(requireContext(), R.layout.dropdownmenupopupitem, stateNames)
+        stateEditText.setAdapter(stateAdapter)
+
+        stateEditText.setOnItemClickListener { _, _, position, _ ->
+            val selectedState = stateNames[position]
+            val districts = statesAndDistricts[selectedState] ?: emptyList()
+            val districtAdapter = ArrayAdapter(requireContext(), R.layout.dropdownmenupopupitem, districts)
+            districtEditText.setAdapter(districtAdapter)
+            districtEditText.setText("")
+            districtEditText.isEnabled = true
+            districtEditText.alpha = 1f
+        }
+        stateEditText.addTextChangedListener {
+            if (it.isNullOrEmpty()) {
+                districtEditText.setText("")
+                districtEditText.isEnabled = false
+                districtEditText.alpha = 0.5f
+            }
+        }
 
         // Set current values in the dialog EditTexts
         usernameEditText.setText(binding.profileUsername.text)

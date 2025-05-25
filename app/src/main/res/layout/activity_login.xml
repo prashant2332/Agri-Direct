@@ -97,12 +97,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/button_tint_selector"
-            android:elevation="10dp"
+            android:elevation="20dp"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/loginbtn"
             android:textColor="@android:color/white"
             android:typeface="sans"
-            app:cornerRadius="5dp" />
+            app:cornerRadius="7dp" />
 
         <!-- Register Redirect -->
         <com.google.android.material.textview.MaterialTextView

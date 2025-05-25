@@ -33,10 +33,8 @@ import java.io.InputStreamReader
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-
     private lateinit var searchProductAdapter: SearchProductAdapter
     private val productList: MutableList<SearchProduct> = mutableListOf()
-
     private lateinit var state: AutoCompleteTextView
     private lateinit var district: AutoCompleteTextView
     private lateinit var statesAndDistricts: Map<String, List<String>>
@@ -44,7 +42,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -52,9 +50,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize RecyclerView
         searchProductAdapter = SearchProductAdapter(requireContext(), productList) { product ->
-            // When product is clicked, pass userId to ProfileActivity
             val intent = Intent(requireContext(), ProfileActivity::class.java)
             intent.putExtra("USER_ID", product.userId)
             intent.putExtra("token", "false") // Passing userId to ProfileActivity
@@ -63,20 +59,16 @@ class HomeFragment : Fragment() {
         binding.searchrecyclerview.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         binding.searchrecyclerview.adapter = searchProductAdapter
 
-
         state = binding.state
         district = binding.district
         district.isEnabled = false
         district.alpha = 0.5f
 
-        // Load state and district data from assets
         val inputStream = requireContext().assets.open("statesanddistricts.json")
         val reader = InputStreamReader(inputStream)
         val type = object : TypeToken<Map<String, List<String>>>() {}.type
         statesAndDistricts = Gson().fromJson(reader, type)
 
-
-        // Populate state dropdown
         val stateNames = statesAndDistricts.keys.toList()
         val stateAdapter = ArrayAdapter(requireContext(), R.layout.dropdownmenupopupitem, stateNames)
         state.setAdapter(stateAdapter)
@@ -130,17 +122,13 @@ class HomeFragment : Fragment() {
     private fun fetchProducts(productName: String, state: String, district: String, maxPrice: Int) {
         val usersRef = FirebaseDatabase.getInstance().reference.child("Users")
         val productsRef = FirebaseDatabase.getInstance().reference.child("products")
-
         lifecycleScope.launch {
             try {
-                // Show ProgressBar
                 binding.progressBar.visibility = View.VISIBLE
-
+                binding.swipe.visibility=View.VISIBLE
                 val usersSnapshot = usersRef.get().await()
                 productList.clear()
-
                 val deferredList = mutableListOf<Deferred<Unit>>()
-
                 for (userSnapshot in usersSnapshot.children) {
                     val userId = userSnapshot.key ?: continue
                     val userState = userSnapshot.child("state").getValue(String::class.java)
@@ -152,8 +140,7 @@ class HomeFragment : Fragment() {
                             for (productData in productSnapshot.children) {
                                 val product = productData.getValue(SearchProduct::class.java)
                                 if (product != null &&
-                                    product.name.contains(productName, ignoreCase = true) &&
-                                    product.price <= maxPrice
+                                    product.name.contains(productName, ignoreCase = true) && product.price <= maxPrice
                                 ) {
                                     product.userId = userId
                                     productList.add(product)
@@ -163,22 +150,20 @@ class HomeFragment : Fragment() {
                         deferredList.add(deferred)
                     }
                 }
-
                 deferredList.awaitAll()
-
                 searchProductAdapter.notifyDataSetChanged()
-
                 if (productList.isEmpty()) {
                     Toast.makeText(requireContext(), "No Products Found", Toast.LENGTH_SHORT).show()
                 }
-
             } catch (e: Exception) {
-                e.printStackTrace()
                 Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             } finally {
-                // Hide ProgressBar
                 binding.progressBar.visibility = View.GONE
+
             }
         }
     }
 }
+
+
+

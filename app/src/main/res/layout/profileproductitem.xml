@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="20dp"
-    app:cardElevation="4dp"
+    app:cardElevation="20dp"
     android:background="@android:color/white">
 
     <LinearLayout
@@ -152,11 +152,12 @@
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:text="Wishlist"
+                    android:elevation="20dp"
                     android:textAllCaps="false"
                     android:fontFamily="@font/poppins_regular"
                     android:textColor="@android:color/white"
                     android:backgroundTint="@color/button_tint_selector"
-                    app:cornerRadius="8dp" />
+                    app:cornerRadius="7dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/place_bid_button"
@@ -168,7 +169,8 @@
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:backgroundTint="@color/button_tint_selector"
-                    app:cornerRadius="8dp" />
+                    app:cornerRadius="7dp"
+                    android:elevation="20dp"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

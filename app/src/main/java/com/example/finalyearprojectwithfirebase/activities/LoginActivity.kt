@@ -44,6 +44,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginUser() {
+
         val email = binding.loginEmail.text.toString().trim()
         val password = binding.loginPassword.text.toString().trim()
 
@@ -71,12 +72,13 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch{
             try {
                 auth.signInWithEmailAndPassword(email, password).await()
-                Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT).show()
-
+                Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT)
+                    .show()
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
             } catch (e: Exception) {
-                Toast.makeText(this@LoginActivity, "Login failed: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@LoginActivity,e.message, Toast.LENGTH_LONG)
+                    .show()
             } finally {
                 binding.btnLogin.isEnabled = true
                 binding.progressBar.visibility=View.GONE

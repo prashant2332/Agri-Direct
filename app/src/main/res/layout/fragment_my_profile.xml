@@ -38,9 +38,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/button_tint_selector"
-            android:elevation="10dp"
+            android:elevation="20dp"
             android:fontFamily="@font/poppins_regular"
             android:text="Edit Pic"
+            app:cornerRadius="7dp"
             android:textColor="@android:color/white"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:backgroundTint="@color/button_tint_selector"
-            android:elevation="10dp"
+            android:elevation="20dp"
+            app:cornerRadius="7dp"
             android:fontFamily="@font/poppins_regular"
             android:text="Remove Pic"
             android:textColor="@android:color/white"
@@ -94,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
                         android:text="Name: "
-                        android:textColor="#444"
+                        android:textColor="@color/buttoncolor"
                         android:textStyle="bold"
                         android:typeface="sans" />
 
@@ -104,9 +106,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/poppins_regular"
-                        android:gravity="center"
+                        android:gravity="start"
                         android:text="Not Mentioned"
-                        android:textColor="#000"
+                        android:textColor="@color/buttoncolor"
                         android:typeface="sans" />
                 </LinearLayout>
 
@@ -121,7 +123,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
                         android:text="Email: "
-                        android:textColor="#444"
+                        android:textColor="@color/buttoncolor"
                         android:textStyle="bold"
                         android:typeface="sans" />
 
@@ -131,9 +133,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/poppins_regular"
-                        android:gravity="center"
+                        android:gravity="start"
                         android:text="Not mentioned"
-                        android:textColor="#000"
+                        android:textColor="@color/buttoncolor"
                         android:typeface="sans" />
                 </LinearLayout>
 
@@ -148,7 +150,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
                         android:text="Phone: "
-                        android:textColor="#444"
+                        android:textColor="@color/buttoncolor"
                         android:textStyle="bold"
                         android:typeface="sans" />
 
@@ -158,9 +160,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/poppins_regular"
-                        android:gravity="center"
+                        android:gravity="start"
                         android:text="Not mentioned"
-                        android:textColor="#000"
+                        android:textColor="@color/buttoncolor"
                         android:typeface="sans" />
                 </LinearLayout>
 
@@ -175,7 +177,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
                         android:text="State: "
-                        android:textColor="#444"
+                        android:textColor="@color/buttoncolor"
                         android:textStyle="bold"
                         android:typeface="sans" />
 
@@ -185,9 +187,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/poppins_regular"
-                        android:gravity="center"
+                        android:gravity="start"
                         android:text="Not mentioned"
-                        android:textColor="#000"
+                        android:textColor="@color/buttoncolor"
                         android:typeface="sans" />
                 </LinearLayout>
 
@@ -202,7 +204,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
                         android:text="District: "
-                        android:textColor="#444"
+                        android:textColor="@color/buttoncolor"
                         android:textStyle="bold"
                         android:typeface="sans" />
 
@@ -212,9 +214,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/poppins_regular"
-                        android:gravity="center"
+                        android:gravity="start"
                         android:text="Not mentioned"
-                        android:textColor="#000"
+                        android:textColor="@color/buttoncolor"
                         android:typeface="sans" />
                 </LinearLayout>
 
@@ -229,7 +231,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
                         android:text="Locale Address: "
-                        android:textColor="#444"
+                        android:textColor="@color/buttoncolor"
                         android:textStyle="bold"
                         android:typeface="sans" />
 
@@ -239,9 +241,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/poppins_regular"
-                        android:gravity="center"
+                        android:gravity="start"
                         android:text="Not mentioned"
-                        android:textColor="#000"
+                        android:textColor="@color/buttoncolor"
                         android:typeface="sans" />
                 </LinearLayout>
 
@@ -256,7 +258,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
                         android:text="Successful Transactions: "
-                        android:textColor="#444"
+                        android:textColor="@color/buttoncolor"
                         android:textStyle="bold"
                         android:typeface="sans" />
 
@@ -266,9 +268,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/poppins_regular"
-                        android:gravity="center"
+                        android:gravity="start"
                         android:text="0"
-                        android:textColor="#000"
+                        android:textColor="@color/buttoncolor"
                         android:typeface="sans" />
                 </LinearLayout>
                 <LinearLayout
@@ -282,7 +284,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
                         android:text="Rating:"
-                        android:textColor="#444"
+                        android:textColor="@color/buttoncolor"
                         android:textStyle="bold"
                         android:typeface="sans" />
 
@@ -292,9 +294,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/poppins_regular"
-                        android:gravity="center"
+                        android:gravity="start"
                         android:text="0"
-                        android:textColor="#000"
+                        android:textColor="@color/buttoncolor"
                         android:typeface="sans" />
                 </LinearLayout>
 
@@ -306,9 +308,10 @@
             android:id="@+id/editprofiledetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="1dp"
             android:backgroundTint="@color/button_tint_selector"
-            android:elevation="10dp"
+            android:elevation="20dp"
+            app:cornerRadius="7dp"
             android:fontFamily="@font/poppins_regular"
             android:text="Edit Details"
             android:textColor="@android:color/white"

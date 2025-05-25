@@ -1,6 +1,7 @@
 package com.example.finalyearprojectwithfirebase.fragments
 
 import android.Manifest
+import android.R
 import android.content.ContentValues
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -10,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -128,18 +130,15 @@ class SellFragment : Fragment() {
                         val tempList = mutableListOf<StockProduct>()
                         var loadedCount = 0
                         val totalProducts = snapshot.children.count()
-
                         if (totalProducts == 0) {
                             adapter.notifyDataSetChanged()
                             binding.progressBar.visibility=View.GONE
                             return
                         }
-
                         for (data in snapshot.children) {
                             val productId = data.key ?: continue
                             val product = data.getValue(StockProduct::class.java)
                             product?.productid = productId
-
                             if (product != null) {
                                 databasereference
                                     .child("Bids")
@@ -150,20 +149,15 @@ class SellFragment : Fragment() {
                                             product.currenthighestbid = bidSnapshot.child("currenthighestbid").value?.toString()?.toIntOrNull() ?: 0
                                             product.currentbidderquantity = bidSnapshot.child("currentbidderquantity").value?.toString()?.toIntOrNull() ?: 0
                                             product.currentbidderid = bidSnapshot.child("currentbidderid").value?.toString() ?: ""
-
                                             tempList.add(product)
                                             loadedCount++
-
                                             if (loadedCount == totalProducts) {
-
                                                 productList.clear()
                                                 productList.addAll(tempList)
                                                 adapter.notifyDataSetChanged()
                                                 binding.progressBar.visibility=View.GONE
                                             }
-
                                         }
-
                                         override fun onCancelled(error: DatabaseError) {
 
                                             loadedCount++
@@ -185,7 +179,6 @@ class SellFragment : Fragment() {
                         }
                         binding.progressBar.visibility=View.GONE
                     }
-
                     override fun onCancelled(error: DatabaseError) {
                         Toast.makeText(requireContext(), "Failed to load your products", Toast.LENGTH_SHORT).show()
                         binding.progressBar.visibility=View.GONE
@@ -194,7 +187,7 @@ class SellFragment : Fragment() {
         }
     }
 
-   private fun deleteProduct(product: StockProduct) {
+    private fun deleteProduct(product: StockProduct) {
         val productId = product.productid
 
         // 1. Delete from Products
@@ -241,13 +234,15 @@ class SellFragment : Fragment() {
                }
        }
     }
-
-
     private fun addProduct() {
         dialogBinding = NewproductBinding.inflate(LayoutInflater.from(requireContext()))
         val alertDialog = AlertDialog.Builder(requireContext())
             .setView(dialogBinding?.root)
             .create()
+
+        val units = listOf("Quintal", "Kilogram")
+        val adapter = ArrayAdapter(requireContext(), R.layout.simple_dropdown_item_1line, units)
+        dialogBinding?.etUnit?.setAdapter(adapter)
 
         dialogBinding?.btnUploadImage?.setOnClickListener{
             showImagePickDialog()
@@ -312,7 +307,6 @@ class SellFragment : Fragment() {
         }
         alertDialog.show()
     }
-
     private fun navigateToUpdate(product: StockProduct) {
         val dialogBinding = UpdateproductBinding.inflate(LayoutInflater.from(requireContext()))
         val alertDialog = AlertDialog.Builder(requireContext())
@@ -344,12 +338,10 @@ class SellFragment : Fragment() {
 
         alertDialog.show()
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
     private fun showImagePickDialog() {
         val options = arrayOf("Camera", "Gallery")
         android.app.AlertDialog.Builder(requireContext())
@@ -364,7 +356,6 @@ class SellFragment : Fragment() {
             }
             .show()
     }
-
     private fun openCamera() {
         val values = ContentValues().apply {
             put(MediaStore.Images.Media.TITLE, "New Picture")
@@ -376,7 +367,6 @@ class SellFragment : Fragment() {
         )
         takePhotoFromCamera.launch(cameraImageUri)
     }
-
     private fun uploadImageToCloudinary(imageUri: Uri) {
         val path = FileUtils.getPath(requireContext(), imageUri) ?: return
         val file = File(path)

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="12dp"
     app:cardCornerRadius="20dp"
-    app:cardElevation="8dp"
+    app:cardElevation="13dp"
     android:backgroundTint="@android:color/white">
 
     <LinearLayout
@@ -19,6 +19,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
+            app:cornerRadius="5dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/noimageavailable"
             android:background="@drawable/image_rounded_background"
@@ -115,17 +116,18 @@
             <!-- Bid Toggle (Visible to seller only) -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/enabledisable"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@color/button_tint_selector"
                 android:text="Enabled"
+                android:textSize="13sp"
                 android:textAllCaps="false"
-                android:elevation="10dp"
+                android:elevation="20dp"
                 android:textColor="@color/white"
                 android:typeface="sans"
-                app:cornerRadius="8dp" />
+                app:cornerRadius="7dp" />
 
             <!-- Buttons: Update/Delete -->
             <LinearLayout
@@ -136,31 +138,33 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnUpdate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/poppins_regular"
                     android:backgroundTint="@color/button_tint_selector"
                     android:text="Update"
-                    android:elevation="10dp"
+                    android:textSize="13sp"
+                    android:elevation="20dp"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:typeface="sans"
-                    app:cornerRadius="8dp" />
+                    app:cornerRadius="7dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDelete"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
                     android:layout_marginTop="8dp"
                     android:backgroundTint="@color/button_tint_selector"
                     android:text="Delete"
-                    android:elevation="10dp"
+                    android:textSize="13sp"
+                    android:elevation="20dp"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:typeface="sans"
-                    app:cornerRadius="8dp" />
+                    app:cornerRadius="7dp" />
             </LinearLayout>
 
             <!-- Transaction Status -->
@@ -169,9 +173,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Transaction Status: Not Available"
+                android:text="Transaction Status: N/A"
                 android:textColor="#3D0585"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:fontFamily="@font/poppins_regular"
                 android:typeface="sans" />
             <com.google.android.material.button.MaterialButton
@@ -183,11 +187,11 @@
                 android:backgroundTint="@color/button_tint_selector"
                 android:text="Rate buyer"
                 android:enabled="false"
-                android:elevation="10dp"
+                android:elevation="20dp"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:typeface="sans"
-                app:cornerRadius="8dp" />
+                app:cornerRadius="7dp" />
 
 
 

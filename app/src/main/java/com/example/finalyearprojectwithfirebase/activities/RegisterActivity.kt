@@ -142,6 +142,7 @@ class RegisterActivity : AppCompatActivity() {
 
             auth.fetchSignInMethodsForEmail(email).addOnCompleteListener { checkTask ->
                 val signInMethods = checkTask.result?.signInMethods
+
                 if (!signInMethods.isNullOrEmpty()) {
                     Toast.makeText(this, "This email is already registered", Toast.LENGTH_LONG).show()
                 } else {
@@ -153,7 +154,7 @@ class RegisterActivity : AppCompatActivity() {
                             auth.createUserWithEmailAndPassword(email, password)
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
-                                        Toast.makeText(this, "Account created successfully", Toast.LENGTH_LONG).show()
+                                        Toast.makeText(this, "Account created", Toast.LENGTH_LONG).show()
                                         val user = User(email, phoneNumber, username, state, district, localAddress)
 
                                         if (userid != null) {
@@ -165,12 +166,12 @@ class RegisterActivity : AppCompatActivity() {
                                                 }
                                                 .addOnFailureListener {
                                                     binding.progressBar.visibility=View.GONE
-                                                    Toast.makeText(this, "Failed to save user: ${it.message}", Toast.LENGTH_SHORT).show()
+                                                    Toast.makeText(this,it.message, Toast.LENGTH_SHORT).show()
                                                 }
                                         }
                                     } else {
                                         binding.progressBar.visibility=View.GONE
-                                        Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                                        Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
                                     }
                                 }
                         }

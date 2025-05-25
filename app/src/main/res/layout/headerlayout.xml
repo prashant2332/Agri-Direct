@@ -10,9 +10,6 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/headerimg"
-        app:tint="@color/productnamecolor"
+        app:tint="#14487A"
         android:contentDescription="Header Image"/>
-
-
-
 </LinearLayout>

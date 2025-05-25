@@ -133,14 +133,25 @@
                 android:layout_height="wrap_content"
                 android:text="Search"
                 android:fontFamily="@font/poppins_regular"
-                app:cornerRadius="5dp"
+                app:cornerRadius="7dp"
                 android:layout_gravity="center"
                 app:icon="@drawable/vectorsearch"
                 android:textColor="@android:color/white"
                 android:layout_marginBottom="24dp"
                 android:backgroundTint="@color/button_tint_selector"
                 android:paddingHorizontal="32dp"
-                android:elevation="10dp" />
+                android:elevation="20dp" />
+            <TextView
+                android:id="@+id/swipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:textColor="#4F5153"
+                android:textSize="14sp"
+                android:layout_marginStart="16dp"
+                android:visibility="gone"
+                android:text="Swipe to see more →"/>
+
 
             <!-- RecyclerView placed separately to avoid layout conflicts -->
             <androidx.recyclerview.widget.RecyclerView

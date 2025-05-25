@@ -58,7 +58,7 @@ class CartAdapter(
                     holder.binding.currenthighestbid.text="Current Bid: ₹${currentbhighestbid}"
                 }
                 override fun onCancelled(error: DatabaseError) {
-                    holder.binding.currenthighestbid.text="Current Bid: Not Available"
+                    holder.binding.currenthighestbid.text="Current Bid: ₹0"
                 }
             })
 

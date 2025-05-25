@@ -52,20 +52,16 @@ class YourBiddingFragment : Fragment() {
     }
 
     private fun loadBiddedProducts() {
-
         if (userid!=null) {
-            // Reference to Cart node under current user
             databaseReference.child("YourBids").child(userid)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         bidList.clear() // Clear previous cart data
-
                         for (bidItem in snapshot.children) {
                             val bidId = bidItem.key
                             val sellerId = bidItem.child("sellerId").getValue(String::class.java)
                             val productId = bidItem.child("productId").getValue(String::class.java)
                             val result=bidItem.child("result").getValue(String::class.java)
-
                             if (!sellerId.isNullOrEmpty() && !productId.isNullOrEmpty()) {
                                 // Get product from Products node
                                 databaseReference.child("products").child(sellerId).child(productId)
@@ -124,4 +120,5 @@ class YourBiddingFragment : Fragment() {
     private fun showErrorToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
+
 }

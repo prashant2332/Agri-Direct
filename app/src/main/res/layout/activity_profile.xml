@@ -160,6 +160,17 @@
                     android:src="@drawable/baseline_arrow_forward_ios_24"/>
 
             </LinearLayout>
+            <TextView
+                android:id="@+id/swipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:textColor="#166588"
+                android:textSize="14sp"
+                android:visibility="gone"
+                android:layout_marginStart="16dp"
+                android:text="Swipe to see more →"/>
+
 
             <!-- Product List -->
             <androidx.recyclerview.widget.RecyclerView
@@ -168,6 +179,9 @@
                 android:layout_height="match_parent"
                 android:nestedScrollingEnabled="false"
                 android:clipToPadding="false"
+                android:fadingEdgeLength="50dp"
+                android:requiresFadingEdge="horizontal"
+                android:layout_marginTop="5dp"
                 android:paddingBottom="24dp" />
         </LinearLayout>
     </ScrollView>

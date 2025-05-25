@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/gradient_overlay"
-        android:padding="8dp"
+        android:padding="2dp"
         tools:context=".fragments.SellFragment">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -18,6 +18,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
+            android:fadingEdgeLength="50dp"
+            android:requiresFadingEdge="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

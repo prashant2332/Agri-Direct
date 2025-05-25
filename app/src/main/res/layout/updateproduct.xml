@@ -1,4 +1,3 @@
-
 <androidx.cardview.widget.CardView
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +13,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
     <androidx.cardview.widget.CardView
 
         android:layout_width="match_parent"
@@ -27,7 +25,7 @@
             android:layout_height="wrap_content"
             app:boxBackgroundMode="filled"
             app:boxBackgroundColor="@android:color/white"
-            android:hint="Quantity">
+            android:hint="Available Quantity">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etUpdateQuantity"
@@ -53,7 +51,7 @@
             android:layout_height="wrap_content"
             app:boxBackgroundMode="filled"
             app:boxBackgroundColor="@android:color/white"
-            android:hint="Price">
+            android:hint="Price per unit">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etUpdatePrice"
@@ -71,12 +69,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="update"
-        app:cornerRadius="5dp"
+        app:cornerRadius="7dp"
         android:fontFamily="@font/poppins_regular"
         android:textColor="@android:color/white"
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/button_tint_selector"
         android:paddingHorizontal="32dp"
-        android:elevation="10dp" />
+        android:elevation="20dp" />
 </LinearLayout>
 </androidx.cardview.widget.CardView>

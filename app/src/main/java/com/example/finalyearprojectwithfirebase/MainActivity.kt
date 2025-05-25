@@ -36,30 +36,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         drawerLayout=binding.drawerLayout
         navigationView=binding.navigationView
         toolbar=findViewById(R.id.toolbar)
         toolbarTitleTextView = toolbar.findViewById(R.id.toolbartitletextview)
 
-
-        //step 1
         setSupportActionBar(toolbar)
-        //step 2
         setupDrawerToggle()
-
         val navController = findNavController(R.id.fragmentcontainer)
         val nav = binding.navigationView
         nav.setupWithNavController(navController)
 
         nav.setNavigationItemSelectedListener { item ->
-
             for (i in 0 until nav.menu.size()) {
                 nav.menu.getItem(i).isChecked = false
             }
             item.isChecked = true
-
-
             when (item.itemId) {
                 R.id.home -> navigateIfNotCurrent(navController, R.id.home)
                 R.id.profile -> navigateIfNotCurrent(navController, R.id.profile)
@@ -73,13 +65,10 @@ class MainActivity : AppCompatActivity() {
                     finish()
                 }
             }
-
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
-
         setupBackButtonHandler()
-        // 🔥 Add this block to change toolbar title dynamically
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val title = when (destination.id) {
                 R.id.home -> "Home"

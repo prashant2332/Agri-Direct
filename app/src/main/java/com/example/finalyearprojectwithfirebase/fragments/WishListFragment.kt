@@ -51,7 +51,6 @@ class WishListFragment : Fragment() {
         binding.progressBar.visibility=View.VISIBLE
         loadCartProducts()
     }
-
     private fun loadCartProducts() {
         val currentUserId = Firebase.auth.currentUser?.uid
         if (currentUserId != null) {
@@ -61,7 +60,6 @@ class WishListFragment : Fragment() {
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             cartList.clear() // Clear previous cart data
-
                             for (cartItem in snapshot.children) {
                                 val cartId = cartItem.key
                                 val sellerId = cartItem.child("sellerId").getValue(String::class.java)
@@ -88,7 +86,6 @@ class WishListFragment : Fragment() {
                                 }
                             }
                             binding.progressBar.visibility=View.GONE
-
                         }
                         override fun onCancelled(error: DatabaseError) {
                             showErrorToast(error.message)

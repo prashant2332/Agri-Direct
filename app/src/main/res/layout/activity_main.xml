@@ -24,7 +24,7 @@
         android:background="@drawable/gradient_overlay"
         app:headerLayout="@layout/headerlayout"
         app:menu="@menu/my_menu"
-        app:itemIconTint="@color/productnamecolor"
-        app:itemTextColor="#011111"
+        app:itemIconTint="#14487A"
+        app:itemTextColor="#14487A"
         app:itemIconSize="24dp" />
 </androidx.drawerlayout.widget.DrawerLayout>

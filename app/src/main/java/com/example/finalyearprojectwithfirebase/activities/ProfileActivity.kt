@@ -76,14 +76,12 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun fetchUserDetails(onComplete: () -> Unit) {
         var tasksRemaining = 3
-
         fun taskDone() {
             tasksRemaining--
             if (tasksRemaining == 0) {
                 onComplete()
             }
         }
-
         // --- 1. Fetch user info ---
         usersRef.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -92,11 +90,9 @@ class ProfileActivity : AppCompatActivity() {
                 val address = snapshot.child("localeaddress").getValue(String::class.java)
                 val phone = snapshot.child("phonenumber").getValue(String::class.java)
                 val profilepic = snapshot.child("profilepic").getValue(String::class.java)
-
                 binding.username.text = username ?: "N/A"
                 binding.email.text = email ?: "N/A"
                 binding.address.text = address ?: "N/A"
-
                 if (profilepic?.isNotEmpty() == true) {
                     Glide.with(this@ProfileActivity)
                         .load(profilepic)
@@ -104,7 +100,6 @@ class ProfileActivity : AppCompatActivity() {
                 } else {
                     binding.profileImageView.setImageResource(R.drawable.profile)
                 }
-
                 if (!phone.isNullOrEmpty()) {
                     binding.callButton.setOnClickListener {
                         val callIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))
@@ -118,16 +113,13 @@ class ProfileActivity : AppCompatActivity() {
                     binding.callButton.isEnabled = false
                     binding.messageButton.isEnabled = false
                 }
-
                 taskDone() // ✅ user info task done
             }
-
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(this@ProfileActivity, "Failed to fetch user details", Toast.LENGTH_SHORT).show()
                 taskDone() // still call to avoid hanging the ProgressBar
             }
         })
-
         // --- 2. Transactions task ---
         val transactionRef = database.child("Transactions").child(userId)
         transactionRef.get().addOnSuccessListener { snapshot ->
@@ -138,14 +130,12 @@ class ProfileActivity : AppCompatActivity() {
                     count++
                 }
             }
-
             binding.succesfultransaction.text = "Successful Sales $count"
             taskDone() // ✅ transactions done
         }.addOnFailureListener {
             Toast.makeText(this@ProfileActivity, "Failed to retrieve transactions", Toast.LENGTH_SHORT).show()
             taskDone() // still call to avoid hanging the ProgressBar
         }
-
         // --- 3. Ratings task ---
         calculateAverageRating(userId) { averageRating ->
             if (averageRating > 0) {
@@ -193,6 +183,7 @@ class ProfileActivity : AppCompatActivity() {
             .child(userId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    binding.swipe.visibility=View.VISIBLE
                     productList.clear()
                     var itemsProcessed = 0
                     val totalItems = snapshot.children.count()
@@ -263,6 +254,7 @@ class ProfileActivity : AppCompatActivity() {
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(this@ProfileActivity, "Failed to fetch products", Toast.LENGTH_SHORT).show()
                     onComplete()
+                    binding.swipe.visibility=View.GONE
                 }
             })
     }

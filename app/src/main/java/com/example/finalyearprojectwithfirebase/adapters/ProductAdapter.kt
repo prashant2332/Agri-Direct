@@ -13,6 +13,8 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.finalyearprojectwithfirebase.databinding.ProductItemBinding
 
 import com.example.finalyearprojectwithfirebase.model.StockProduct
@@ -65,6 +67,7 @@ class ProductAdapter(private val context: Context,
             Glide
                 .with(context)
                 .load(currentProductPicUrl)
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(24)))
                 .into(holder.binding.productImage)
         }
 
@@ -170,13 +173,13 @@ class ProductAdapter(private val context: Context,
                                     val status = data.child("status").getValue(String::class.java)
 
                                     if(status?.equals("Successful") == true){
-                                        holder.binding.transactionstatus.text="Transaction Successful"
+                                        holder.binding.transactionstatus.text="Transaction Status: Successful"
                                         holder.binding.btnDelete.isEnabled=true
                                         val transactionstatus="Successful"
                                         call(product,transactionstatus,holder)
                                     }
                                     else if(status?.equals("Canceled")==true){
-                                        holder.binding.transactionstatus.text="Transaction Canceled"
+                                        holder.binding.transactionstatus.text="Transaction Status: Canceled"
                                         holder.binding.btnDelete.isEnabled=true
                                         val transactionstatus="Canceled"
                                         call(product,transactionstatus,holder)

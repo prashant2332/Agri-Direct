@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 app:cardElevation="4dp"
                 android:layout_marginBottom="10dp"
-                app:cardCornerRadius="8dp">
+                app:cardCornerRadius="12dp">
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -41,14 +41,14 @@
                 android:layout_height="wrap_content"
                 app:cardElevation="4dp"
                 android:layout_marginBottom="10dp"
-                app:cardCornerRadius="8dp">
+                app:cardCornerRadius="12dp">
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxBackgroundMode="filled"
                     app:boxBackgroundColor="@android:color/white"
 
-                    android:hint="Variety">
+                    android:hint="Product Variety">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etVariety"
@@ -65,13 +65,13 @@
                 android:layout_height="wrap_content"
                 app:cardElevation="4dp"
                 android:layout_marginBottom="10dp"
-                app:cardCornerRadius="8dp">
+                app:cardCornerRadius="12dp">
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxBackgroundMode="filled"
                     app:boxBackgroundColor="@android:color/white"
-                    android:hint="Quantity">
+                    android:hint="Available Quantity">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etQuantity"
@@ -82,40 +82,45 @@
                         android:typeface="sans" />
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="4dp"
                 android:layout_marginBottom="10dp"
-                app:cardCornerRadius="8dp">
+                app:cardCornerRadius="12dp">
+
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/unit"
                     app:boxBackgroundMode="filled"
-                    app:boxBackgroundColor="@android:color/white"
-                    android:hint="Unit">
+                    android:hint="Select Unit">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/etUnit"
+                        android:focusable="true"
+                        android:clickable="true"
+                        android:importantForAccessibility="yes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:inputType="text"
-                        android:typeface="sans" />
+                        android:inputType="none" />
                 </com.google.android.material.textfield.TextInputLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="4dp"
                 android:layout_marginBottom="10dp"
-                app:cardCornerRadius="8dp">
+                app:cardCornerRadius="12dp">
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxBackgroundMode="filled"
                     app:boxBackgroundColor="@android:color/white"
-                    android:hint="Price">
+                    android:hint="Price per unit">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPrice"
@@ -130,7 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="4dp"
-                app:cardCornerRadius="8dp">
+                app:cardCornerRadius="12dp">
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     app:boxBackgroundMode="filled"
@@ -155,11 +160,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:backgroundTint="@color/button_tint_selector"
-                android:elevation="10dp"
+                android:elevation="20dp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="Upload Image"
                 android:textColor="@android:color/white"
-                app:cornerRadius="8dp" />
+                app:cornerRadius="7dp" />
 
             <TextView
                 android:id="@+id/imagetakenornot"
@@ -173,11 +178,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/button_tint_selector"
-                android:elevation="10dp"
+                android:elevation="20dp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="Add Product"
                 android:textColor="@android:color/white"
-                app:cornerRadius="8dp" />
+                app:cornerRadius="7dp" />
 
         </LinearLayout>
     </ScrollView>

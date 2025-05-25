@@ -140,7 +140,7 @@ class BidAdapter(
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    holder.binding.currenthishestbid.text = "Not Available"
+                    holder.binding.currenthishestbid.text = "Current Bid: ₹0"
                 }
             })
     }

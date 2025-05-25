@@ -35,15 +35,11 @@ class MandiBhavFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var mandiAdapter: MandiAdapter
     private lateinit var apiService: MandiApiService
-
     private lateinit var statename: AutoCompleteTextView
     private lateinit var district: AutoCompleteTextView
     private lateinit var statesAndDistricts: Map<String, List<String>>
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMandiBhavBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -122,6 +118,8 @@ class MandiBhavFragment : Fragment() {
 
     private fun fetchData(apiCall: Call<MandiResponse>) {
         binding.progressBar.visibility = View.VISIBLE
+        binding.swipe.visibility=View.VISIBLE
+
         apiCall.enqueue(object : Callback<MandiResponse> {
             override fun onResponse(call: Call<MandiResponse>, response: Response<MandiResponse>) {
                 binding.progressBar.visibility = View.GONE
@@ -129,13 +127,11 @@ class MandiBhavFragment : Fragment() {
                     val mandiResponse = response.body()
                     if (mandiResponse != null && mandiResponse.records.isNotEmpty()) {
                         mandiAdapter.submitList(mandiResponse.records)
-
                         recyclerView.apply {
                             visibility = View.VISIBLE
                             alpha = 0f
                             animate().alpha(1f).setDuration(500).start()
                         }
-
                     } else {
                         Toast.makeText(requireContext(), "No records found", Toast.LENGTH_SHORT).show()
                     }
@@ -143,26 +139,29 @@ class MandiBhavFragment : Fragment() {
                     Toast.makeText(requireContext(), "Unexpected response", Toast.LENGTH_SHORT).show()
                 }
             }
-
             override fun onFailure(call: Call<MandiResponse>, t: Throwable) {
                 binding.progressBar.visibility = View.GONE
+                binding.swipe.visibility=View.GONE
                 Toast.makeText(requireContext(), "Failed to load data", Toast.LENGTH_SHORT).show()
             }
         })
     }
-
     private fun fetchMandiData(state: String, district: String, commodity: String, arrivalDate: String) {
-        val call = apiService.getMandiData(state = state, district = district, commodity = commodity, arrivalDate = arrivalDate)
+        val call = apiService.getMandiData(state = state, district = district, commodity = commodity,
+            arrivalDate = arrivalDate)
         fetchData(call)
     }
-
     private fun fetchMandiDataWithProductName(commodity: String, arrivalDate: String) {
-        val call = apiService.getMandiDatawithproductname(commodity = commodity, arrivalDate = arrivalDate)
+        val call = apiService.getMandiDatawithproductname(commodity = commodity,
+            arrivalDate = arrivalDate)
         fetchData(call)
     }
-
     private fun fetchMandiDataWithProductAndState(state: String, commodity: String, arrivalDate: String) {
-        val call = apiService.getMandiDatawithproductnameandstate(state = state, commodity = commodity, arrivalDate = arrivalDate)
+        val call = apiService.getMandiDatawithproductnameandstate(state = state, commodity = commodity,
+            arrivalDate = arrivalDate)
         fetchData(call)
     }
 }
+
+
+

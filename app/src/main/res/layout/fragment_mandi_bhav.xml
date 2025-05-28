@@ -14,11 +14,7 @@
         android:gravity="center_horizontal"
         tools:context=".fragments.MandiBhavFragment">
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/stocks"
-            android:layout_marginBottom="10dp" />
+        
 
         <!-- Product Name Input -->
         <androidx.cardview.widget.CardView
@@ -53,6 +49,7 @@
             app:cardCornerRadius="12dp">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/mandistate"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,6 +57,7 @@
                 android:hint="Select State">
 
                 <AutoCompleteTextView
+                    android:inputType="none"
                     android:id="@+id/statename"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -78,17 +76,46 @@
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
+                android:id="@+id/mandidistrict"
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="filled"
                 android:hint="Select District">
 
                 <AutoCompleteTextView
                     android:id="@+id/district"
+                    android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="12dp">
+        <com.google.android.material.textfield.TextInputLayout android:id="@+id/dateInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundMode="filled"
+            android:hint="Select Date"
+            app:endIconDrawable="@drawable/baseline_access_time_24"
+            app:endIconMode="custom"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:focusable="false"
+                android:inputType="date" />
+        </com.google.android.material.textfield.TextInputLayout>
+        </androidx.cardview.widget.CardView>
+
 
         <!-- Search Button -->
         <com.google.android.material.button.MaterialButton
@@ -119,14 +146,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mandirecyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="2dp"
             android:visibility="gone"
             android:fadingEdgeLength="50dp"
-            android:requiresFadingEdge="horizontal"
-            android:scrollbars="vertical" />
+            android:requiresFadingEdge="vertical"/>
     </LinearLayout>
 
     <!-- Lottie Loader -->

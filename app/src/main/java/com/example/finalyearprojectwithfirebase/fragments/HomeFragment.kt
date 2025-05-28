@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +17,7 @@ import com.example.finalyearprojectwithfirebase.R
 import com.example.finalyearprojectwithfirebase.activities.ProfileActivity
 import com.example.finalyearprojectwithfirebase.adapters.SearchProductAdapter
 import com.example.finalyearprojectwithfirebase.databinding.FragmentHomeBinding
+import com.example.finalyearprojectwithfirebase.model.CustomToast
 import com.example.finalyearprojectwithfirebase.model.SearchProduct
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -114,7 +114,8 @@ class HomeFragment : Fragment() {
             if (productName.isNotEmpty() && state.isNotEmpty() && district.isNotEmpty() && maxPrice > 0) {
                 fetchProducts(productName, state, district, maxPrice)
             } else {
-                Toast.makeText(context, "Don't leave any Field Empty", Toast.LENGTH_SHORT).show()
+
+                CustomToast.show(requireContext(),"Don't leave any Field Empty")
             }
         }
     }
@@ -153,10 +154,10 @@ class HomeFragment : Fragment() {
                 deferredList.awaitAll()
                 searchProductAdapter.notifyDataSetChanged()
                 if (productList.isEmpty()) {
-                    Toast.makeText(requireContext(), "No Products Found", Toast.LENGTH_SHORT).show()
+                    CustomToast.show(requireContext(), "No Products Found")
                 }
             } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                CustomToast.show(requireContext(), "Error: ${e.message}")
             } finally {
                 binding.progressBar.visibility = View.GONE
 

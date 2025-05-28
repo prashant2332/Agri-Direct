@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_margin="12dp"
     app:cardCornerRadius="20dp"
     app:cardElevation="13dp"
@@ -14,26 +15,27 @@
         android:padding="16dp">
 
         <!-- Product Image -->
-        <ImageView
-            android:id="@+id/product_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            app:cornerRadius="5dp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/noimageavailable"
-            android:background="@drawable/image_rounded_background"
-            android:contentDescription="Product Image" />
-
-        <!-- Details Section -->
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center_vertical"
-            android:paddingEnd="4dp">
-
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            >
+            <androidx.cardview.widget.CardView
+                android:layout_width="120dp"
+                android:layout_gravity="start"
+                card_view:cardCornerRadius="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_height="100dp">
+            <ImageView
+                android:id="@+id/product_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/noimageavailable"
+                android:background="@drawable/image_rounded_background"
+                android:contentDescription="Product Image" />
+            </androidx.cardview.widget.CardView>
             <!-- Product Info -->
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/productName"
@@ -112,11 +114,24 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:typeface="sans" />
+        </LinearLayout>
+
+
+        <!-- Details Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingEnd="4dp">
+
+
 
             <!-- Bid Toggle (Visible to seller only) -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/enabledisable"
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:layout_marginTop="8dp"
@@ -138,7 +153,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnUpdate"
-                    android:layout_width="100dp"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/poppins_regular"
@@ -153,7 +168,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDelete"
-                    android:layout_width="100dp"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
                     android:layout_marginTop="8dp"
@@ -175,7 +190,7 @@
                 android:layout_marginTop="2dp"
                 android:text="Transaction Status: N/A"
                 android:textColor="#3D0585"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:fontFamily="@font/poppins_regular"
                 android:typeface="sans" />
             <com.google.android.material.button.MaterialButton
@@ -187,12 +202,27 @@
                 android:backgroundTint="@color/button_tint_selector"
                 android:text="Rate buyer"
                 android:enabled="false"
+                android:visibility="gone"
                 android:elevation="20dp"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:typeface="sans"
                 app:cornerRadius="7dp" />
-
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/currentbidderprofile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/button_tint_selector"
+                android:text="Current Bidder"
+                android:visibility="gone"
+                android:textSize="13sp"
+                android:elevation="20dp"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:typeface="sans"
+                app:cornerRadius="7dp" />
 
 
         </LinearLayout>

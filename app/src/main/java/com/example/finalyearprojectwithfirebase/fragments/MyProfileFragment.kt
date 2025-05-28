@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -25,6 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.finalyearprojectwithfirebase.R
 import com.example.finalyearprojectwithfirebase.databinding.FragmentMyProfileBinding
+import com.example.finalyearprojectwithfirebase.model.CustomToast
 import com.example.finalyearprojectwithfirebase.network.FileUtils
 import com.example.finalyearprojectwithfirebase.network.RetrofitClient
 import com.google.firebase.Firebase
@@ -138,7 +137,7 @@ class MyProfileFragment : Fragment() {
                     }
                     binding.progressBar.visibility=View.GONE
                 }.addOnFailureListener {
-                    Toast.makeText(requireContext(), "could not fetch data", Toast.LENGTH_SHORT).show()
+                    CustomToast.show(requireContext(), "could not fetch data")
                     binding.progressBar.visibility=View.GONE
                 }
         }
@@ -155,7 +154,7 @@ class MyProfileFragment : Fragment() {
             }
             binding.succesfultransaction.text="${count}"
         }?.addOnFailureListener {
-            Toast.makeText(context, "Failed to retrieve transactions", Toast.LENGTH_SHORT).show()
+            CustomToast.show(requireContext(), "Failed to retrieve transactions")
         }
         if (userid != null) {
             calculateAverageRating(userid) { averageRating ->
@@ -268,7 +267,7 @@ class MyProfileFragment : Fragment() {
                     updateProfileInDatabase(updatedUsername, updatedPhone, updatedState, updatedDistrict, updatedAddress)
                     fetchuserdetails()
                 } else {
-                    Toast.makeText(requireContext(), "Please fill in all required fields", Toast.LENGTH_SHORT).show()
+                    CustomToast.show(requireContext(), "Please fill in all required fields")
                 }
             }
             .setNegativeButton("Cancel", null)
@@ -321,16 +320,16 @@ class MyProfileFragment : Fragment() {
                         .child("profilepic")
                         .setValue(imageUrl)
                         .addOnSuccessListener {
-                            Toast.makeText(requireContext(), "Updated Successfully", Toast.LENGTH_SHORT).show()
+                            CustomToast.show(requireContext(), "Updated Successfully")
                             fetchuserdetails()
                         }
                         .addOnFailureListener {
-                            Toast.makeText(requireContext(), "Update failed", Toast.LENGTH_SHORT).show()
+                            CustomToast.show(requireContext(), "Update failed")
                         }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                Toast.makeText(requireContext(), "Update Failed", Toast.LENGTH_SHORT).show()
+                CustomToast.show(requireContext(), "Update Failed")
             }
         }
     }
@@ -346,9 +345,9 @@ class MyProfileFragment : Fragment() {
         )
         userRef?.updateChildren(updatedUserData)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(requireContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show()
+                CustomToast.show(requireContext(), "Profile updated successfully")
             } else {
-                Toast.makeText(requireContext(), "Failed to update profile", Toast.LENGTH_SHORT).show()
+                CustomToast.show(requireContext(), "Failed to update profile")
             }
         }
     }

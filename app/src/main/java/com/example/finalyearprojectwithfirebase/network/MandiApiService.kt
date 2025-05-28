@@ -7,7 +7,7 @@
             import retrofit2.http.GET
             import retrofit2.http.Query
 
-            val apikey="579b464db66ec23bdd0000015ce899d3be3948cf7d7edda03e82b080"
+            val apikey="579b464db66ec23bdd00000146157ce6f0444e2c5d49c2544f6016ce"
 
             interface MandiApiService {
 

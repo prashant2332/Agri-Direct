@@ -4,28 +4,28 @@ import android.R
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.example.finalyearprojectwithfirebase.activities.ProfileActivity
 import com.example.finalyearprojectwithfirebase.databinding.ProductItemBinding
-
+import com.example.finalyearprojectwithfirebase.model.CustomToast
 import com.example.finalyearprojectwithfirebase.model.StockProduct
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.database
+
 
 class ProductAdapter(private val context: Context,
     private val productList: List<StockProduct>,
@@ -63,6 +63,8 @@ class ProductAdapter(private val context: Context,
         holder.binding.productQuantity.text = "Quantity: ${product.quantity}"
         holder.binding.productUnit.text = "Unit: ${product.unit}"
 
+
+
         if(currentProductPicUrl.isNotEmpty()){
             Glide
                 .with(context)
@@ -74,6 +76,7 @@ class ProductAdapter(private val context: Context,
         if(currentbidderid.isNotEmpty()){
             holder.binding.btnDelete.isEnabled=false
             holder.binding.btnUpdate.isEnabled=false
+            holder.binding.currentbidderprofile.visibility=View.VISIBLE
         }
         if(currenthighestbid>0) {
             holder.binding.highestBidTextView.text = "Current Bid: ₹${currenthighestbid}"
@@ -116,7 +119,8 @@ class ProductAdapter(private val context: Context,
                 })
             }
             else{
-                Toast.makeText(context,"No bidder is available",Toast.LENGTH_SHORT).show()
+
+                CustomToast.show(context,"No bidder is available")
             }
             holder.binding.enabledisable.isEnabled = false
         }
@@ -155,7 +159,21 @@ class ProductAdapter(private val context: Context,
 
         holder.binding.btnratebuyer.setOnClickListener{
             showRatingDialog(product.currentbidderid,holder.status,product.productid)
-            holder.binding.btnratebuyer.isEnabled=false
+
+            holder.binding.btnratebuyer.visibility=View.GONE
+        }
+
+        holder.binding.currentbidderprofile.setOnClickListener{
+            if(currentbidderid.isNotEmpty()) {
+                val status=!biddingenabled
+                val intent = Intent(context, ProfileActivity::class.java)
+                intent.putExtra("USER_ID", product.currentbidderid)
+                intent.putExtra("token",status.toString())
+                context.startActivity(intent)
+            }
+            else{
+                CustomToast.show(context,"No bidder Available")
+            }
         }
     }
 
@@ -173,13 +191,13 @@ class ProductAdapter(private val context: Context,
                                     val status = data.child("status").getValue(String::class.java)
 
                                     if(status?.equals("Successful") == true){
-                                        holder.binding.transactionstatus.text="Transaction Status: Successful"
+                                        holder.binding.transactionstatus.text="Transaction Successful"
                                         holder.binding.btnDelete.isEnabled=true
                                         val transactionstatus="Successful"
                                         call(product,transactionstatus,holder)
                                     }
                                     else if(status?.equals("Canceled")==true){
-                                        holder.binding.transactionstatus.text="Transaction Status: Canceled"
+                                        holder.binding.transactionstatus.text="Transaction Canceled"
                                         holder.binding.btnDelete.isEnabled=true
                                         val transactionstatus="Canceled"
                                         call(product,transactionstatus,holder)
@@ -191,7 +209,8 @@ class ProductAdapter(private val context: Context,
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-                        Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+
+                        CustomToast.show(context,error.message)
                     }
                 })
         }
@@ -202,6 +221,7 @@ class ProductAdapter(private val context: Context,
             Log.d("RatingCheck", "Already rated: $alreadyRated")
             if (!alreadyRated) {
                 holder.status=transactionstatus
+                holder.binding.btnratebuyer.visibility=View.VISIBLE
                 holder.binding.btnratebuyer.isEnabled=true
             } else {
                 Log.d("RatingCheck", "User already rated")
@@ -251,10 +271,12 @@ class ProductAdapter(private val context: Context,
                     rateBuyerInDatabase(buyerId, rating,status,productId)
                     dialog.dismiss()
                 } else {
-                    Toast.makeText(context, "Please enter a valid rating between 0 and 5", Toast.LENGTH_SHORT).show()
+
+                    CustomToast.show(context,"Please enter a valid rating between 0 and 5")
                 }
             } else {
-                Toast.makeText(context, "Rating cannot be empty", Toast.LENGTH_SHORT).show()
+
+                CustomToast.show(context, "Rating cannot be empty")
             }
         }
         cancelButton.setOnClickListener {
@@ -277,11 +299,13 @@ class ProductAdapter(private val context: Context,
         )
         TransactionRef.setValue(transactionitem)
             .addOnSuccessListener {
-                Toast.makeText(context, "Thank u for  rating the buyer", Toast.LENGTH_SHORT).show()
+
+                CustomToast.show(context,"Thank u for  rating the buyer")
 
             }
             .addOnFailureListener {
-                Toast.makeText(context, "Failed to update the status", Toast.LENGTH_SHORT).show()
+
+                CustomToast.show(context,"Failed to update the status")
             }
     }
 

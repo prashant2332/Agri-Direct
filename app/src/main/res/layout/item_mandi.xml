@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="280dp"
+    android:layout_height="270dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="12dp"
     android:elevation="12dp"
@@ -14,7 +14,7 @@
         android:orientation="horizontal"
         android:padding="2dp"
         android:background="#DFE1E3"
-        android:gravity="center_vertical">
+       >
 
 
         <LinearLayout
@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="start"
+            android:padding="10dp"
             android:orientation="vertical"
             >
 
@@ -41,7 +42,7 @@
                     android:padding="4dp"
                     android:text="Commodity"
                     android:textColor="#000000"
-                    android:textSize="17sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:typeface="sans"
                     app:fontFamily="@font/poppins_regular" />
@@ -255,19 +256,6 @@
                     app:fontFamily="@font/poppins_regular" />
 
             </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         </LinearLayout>
     </LinearLayout>

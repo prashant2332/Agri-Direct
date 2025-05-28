@@ -5,15 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalyearprojectwithfirebase.adapters.BidAdapter
 import com.example.finalyearprojectwithfirebase.databinding.FragmentYourBidsBinding
 import com.example.finalyearprojectwithfirebase.model.BidProduct
-import com.google.firebase.Firebase
+import com.example.finalyearprojectwithfirebase.model.CustomToast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -45,8 +43,6 @@ class YourBiddingFragment : Fragment() {
             removeFromBidSection(bidProduct)
         }
         bidrecyclerView.adapter = bidAdapter
-
-        // Load cart products
         binding.progressBar.visibility=View.VISIBLE
         loadBiddedProducts()
     }
@@ -106,7 +102,7 @@ class YourBiddingFragment : Fragment() {
                 .child(bidProduct.bidid)
                 .removeValue()
                 .addOnSuccessListener {
-                    Toast.makeText(requireContext(), "Removed", Toast.LENGTH_SHORT).show()
+                    CustomToast.show(requireContext(), "Removed")
                     bidList.remove(bidProduct)
                     bidAdapter.notifyDataSetChanged() // Update RecyclerView
                 }
@@ -118,7 +114,7 @@ class YourBiddingFragment : Fragment() {
         }
     }
     private fun showErrorToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        CustomToast.show(requireContext(), message)
     }
 
 }

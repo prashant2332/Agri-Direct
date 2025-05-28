@@ -7,13 +7,10 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.DatePicker
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -24,25 +21,22 @@ import com.example.finalyearprojectwithfirebase.adapters.ProductAdapter
 import com.example.finalyearprojectwithfirebase.databinding.FragmentSellBinding
 import com.example.finalyearprojectwithfirebase.databinding.NewproductBinding
 import com.example.finalyearprojectwithfirebase.databinding.UpdateproductBinding
+import com.example.finalyearprojectwithfirebase.model.CustomToast
 import com.example.finalyearprojectwithfirebase.model.Product
 import com.example.finalyearprojectwithfirebase.model.StockProduct
 import com.example.finalyearprojectwithfirebase.network.FileUtils
 import com.example.finalyearprojectwithfirebase.network.RetrofitClient
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
-import java.util.Calendar
 
 
 class SellFragment : Fragment() {
@@ -180,7 +174,7 @@ class SellFragment : Fragment() {
                         binding.progressBar.visibility=View.GONE
                     }
                     override fun onCancelled(error: DatabaseError) {
-                        Toast.makeText(requireContext(), "Failed to load your products", Toast.LENGTH_SHORT).show()
+                        CustomToast.show(requireContext(), "Failed to load your products")
                         binding.progressBar.visibility=View.GONE
                     }
                 })
@@ -226,11 +220,11 @@ class SellFragment : Fragment() {
                        }
                    }
 
-                   Toast.makeText(requireContext(), "Deleted", Toast.LENGTH_SHORT).show()
+                   CustomToast.show(requireContext(), "Deleted")
                    fetchUserProducts()
                }
                .addOnFailureListener {
-                   Toast.makeText(requireContext(), "Delete failed", Toast.LENGTH_SHORT).show()
+                   CustomToast.show(requireContext(), "Delete failed")
                }
        }
     }
@@ -279,7 +273,7 @@ class SellFragment : Fragment() {
                 isValid = false
             }
             if (image.isEmpty()) {
-                Toast.makeText(requireContext(), "Please upload an image", Toast.LENGTH_SHORT).show()
+                CustomToast.show(requireContext(), "Please upload an image")
                 isValid = false
             }
             if (minimumquantitytobid <= 0) {
@@ -294,13 +288,13 @@ class SellFragment : Fragment() {
                 userid?.let { uid ->
                     databasereference.child("products").child(uid).push().setValue(product)
                         .addOnSuccessListener {
-                            Toast.makeText(requireContext(), "Product added", Toast.LENGTH_SHORT).show()
+                            CustomToast.show(requireContext(), "Product added")
                             fetchUserProducts()
                             alertDialog.dismiss()
                             dialogBinding = null
                         }
                         .addOnFailureListener {
-                            Toast.makeText(requireContext(), "Failed to add product", Toast.LENGTH_SHORT).show()
+                            CustomToast.show(requireContext(), "Failed to add product")
                         }
                 }
             }
@@ -327,12 +321,12 @@ class SellFragment : Fragment() {
             productRef?.child("price")?.setValue(updatedPrice)
             productRef?.child("quantity")?.setValue(updatedQuantity)
                 ?.addOnSuccessListener {
-                    Toast.makeText(requireContext(), "Update Sucessful", Toast.LENGTH_SHORT).show()
+                    CustomToast.show(requireContext(), "Update Sucessful")
                     fetchUserProducts()
                     alertDialog.dismiss()
                 }
                 ?.addOnFailureListener {
-                    Toast.makeText(requireContext(), "Update failed", Toast.LENGTH_SHORT).show()
+                    CustomToast.show(requireContext(), "Update failed")
                 }
         }
 
@@ -381,7 +375,7 @@ class SellFragment : Fragment() {
                 dialogBinding?.imagetakenornot?.text = imageUrl
             } catch (e: Exception) {
                 e.printStackTrace()
-                Toast.makeText(requireContext(), "Upload Failed", Toast.LENGTH_SHORT).show()
+                CustomToast.show(requireContext(), "Upload Failed")
             }
         }
     }

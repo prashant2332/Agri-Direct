@@ -3,19 +3,17 @@ package com.example.finalyearprojectwithfirebase.activities
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.finalyearprojectwithfirebase.R
 import com.example.finalyearprojectwithfirebase.databinding.ActivityProfileBinding
 import com.example.finalyearprojectwithfirebase.adapters.ProfileProductAdapter
+import com.example.finalyearprojectwithfirebase.model.CustomToast
 import com.example.finalyearprojectwithfirebase.model.ProfileProduct
-import com.google.firebase.Firebase
 import com.google.firebase.database.*
-import kotlin.properties.Delegates
+
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -35,11 +33,9 @@ class ProfileActivity : AppCompatActivity() {
 
         // Get user ID from intent
         userId = intent.getStringExtra("USER_ID") ?: ""
-
+        val token = intent.getStringExtra("token")
         binding.progressBar.visibility = View.VISIBLE
 
-
-        val token = intent.getStringExtra("token")
 
         if (token.toBoolean()) {
             binding.callButton.isEnabled = true
@@ -116,7 +112,8 @@ class ProfileActivity : AppCompatActivity() {
                 taskDone() // ✅ user info task done
             }
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@ProfileActivity, "Failed to fetch user details", Toast.LENGTH_SHORT).show()
+
+                CustomToast.show(this@ProfileActivity,"Failed to fetch user details")
                 taskDone() // still call to avoid hanging the ProgressBar
             }
         })
@@ -133,7 +130,8 @@ class ProfileActivity : AppCompatActivity() {
             binding.succesfultransaction.text = "Successful Sales $count"
             taskDone() // ✅ transactions done
         }.addOnFailureListener {
-            Toast.makeText(this@ProfileActivity, "Failed to retrieve transactions", Toast.LENGTH_SHORT).show()
+
+            CustomToast.show(this@ProfileActivity,"Failed to retrieve transactions")
             taskDone() // still call to avoid hanging the ProgressBar
         }
         // --- 3. Ratings task ---
@@ -172,7 +170,7 @@ class ProfileActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.e("Firebase", "Failed to fetch ratings: ${error.message}")
+
                 onResult(0f)
             }
         })
@@ -234,7 +232,8 @@ class ProfileActivity : AppCompatActivity() {
                                     }
 
                                     override fun onCancelled(error: DatabaseError) {
-                                        Toast.makeText(this@ProfileActivity, "Failed to fetch bid", Toast.LENGTH_SHORT).show()
+
+                                        CustomToast.show(this@ProfileActivity,"Failed to fetch bid")
                                         onComplete()
                                     }
 
@@ -252,7 +251,8 @@ class ProfileActivity : AppCompatActivity() {
 
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@ProfileActivity, "Failed to fetch products", Toast.LENGTH_SHORT).show()
+
+                    CustomToast.show(this@ProfileActivity,"Failed to fetch products")
                     onComplete()
                     binding.swipe.visibility=View.GONE
                 }

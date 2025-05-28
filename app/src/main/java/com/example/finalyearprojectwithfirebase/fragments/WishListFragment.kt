@@ -5,13 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import android.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalyearprojectwithfirebase.adapters.CartAdapter
 import com.example.finalyearprojectwithfirebase.databinding.FragmentWishlistBinding
 import com.example.finalyearprojectwithfirebase.model.CartProduct
+import com.example.finalyearprojectwithfirebase.model.CustomToast
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -107,7 +106,7 @@ class WishListFragment : Fragment() {
                 .child(cartProduct.cartid)
                 .removeValue()
                 .addOnSuccessListener {
-                    Toast.makeText(requireContext(), "Product removed from cart", Toast.LENGTH_SHORT).show()
+                    CustomToast.show(requireContext(), "Product removed from cart")
                     cartList.remove(cartProduct)
                     cartAdapter.notifyDataSetChanged() // Update RecyclerView
                 }
@@ -120,6 +119,6 @@ class WishListFragment : Fragment() {
     }
 
     private fun showErrorToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        CustomToast.show(requireContext(), message)
     }
 }

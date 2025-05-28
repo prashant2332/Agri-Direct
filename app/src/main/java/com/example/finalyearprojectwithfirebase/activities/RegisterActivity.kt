@@ -6,12 +6,12 @@ import android.util.Patterns
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.example.finalyearprojectwithfirebase.MainActivity
 import com.example.finalyearprojectwithfirebase.R
 import com.example.finalyearprojectwithfirebase.databinding.ActivityRegisterBinding
+import com.example.finalyearprojectwithfirebase.model.CustomToast
 import com.example.finalyearprojectwithfirebase.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -144,17 +144,20 @@ class RegisterActivity : AppCompatActivity() {
                 val signInMethods = checkTask.result?.signInMethods
 
                 if (!signInMethods.isNullOrEmpty()) {
-                    Toast.makeText(this, "This email is already registered", Toast.LENGTH_LONG).show()
+
+                    CustomToast.show(this@RegisterActivity,"This email is already registered")
                 } else {
                     checkRegistryOfNumber(phoneNumber) { numberExists ->
                         if (numberExists) {
-                            Toast.makeText(this, "Mobile Number is already registered", Toast.LENGTH_SHORT).show()
+
+                            CustomToast.show(this,"Mobile Number is already registered")
                         } else {
                             // Create user
                             auth.createUserWithEmailAndPassword(email, password)
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
-                                        Toast.makeText(this, "Account created", Toast.LENGTH_LONG).show()
+
+                                        CustomToast.show(this@RegisterActivity,"Account Created")
                                         val user = User(email, phoneNumber, username, state, district, localAddress)
 
                                         if (userid != null) {
@@ -166,12 +169,12 @@ class RegisterActivity : AppCompatActivity() {
                                                 }
                                                 .addOnFailureListener {
                                                     binding.progressBar.visibility=View.GONE
-                                                    Toast.makeText(this,it.message, Toast.LENGTH_SHORT).show()
+                                                    CustomToast.show(this@RegisterActivity,it.message!!)
                                                 }
                                         }
                                     } else {
                                         binding.progressBar.visibility=View.GONE
-                                        Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
+                                        CustomToast.show(this@RegisterActivity,task.exception?.message!!)
                                     }
                                 }
                         }
@@ -190,7 +193,7 @@ class RegisterActivity : AppCompatActivity() {
                     callback(snapshot.exists())
                 }
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@RegisterActivity, error.message, Toast.LENGTH_SHORT).show()
+                    CustomToast.show(this@RegisterActivity,error.message)
                     callback(false)
                 }
             })

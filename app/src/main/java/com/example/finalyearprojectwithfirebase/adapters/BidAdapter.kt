@@ -5,28 +5,25 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.finalyearprojectwithfirebase.R
 import com.example.finalyearprojectwithfirebase.activities.ProfileActivity
 import com.example.finalyearprojectwithfirebase.databinding.BiditemBinding
 import com.example.finalyearprojectwithfirebase.model.BidProduct
+import com.example.finalyearprojectwithfirebase.model.CustomToast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.database
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 
@@ -121,12 +118,12 @@ class BidAdapter(
         holder.binding.transactionComplete.setOnClickListener{
             showRatingDialog(bidProduct.sellerId,"Successful",bidProduct.productId,holder)
             holder.binding.transactionComplete.isEnabled=false
-            holder.binding.removefrombidbtn.isEnabled=true
+            loadbtnstatus(bidProduct,holder)
         }
         holder.binding.transactionnotComplete.setOnClickListener{
             showRatingDialog(bidProduct.sellerId,"Canceled",bidProduct.productId,holder)
             holder.binding.transactionnotComplete.isEnabled=false
-            holder.binding.removefrombidbtn.isEnabled=true
+            loadbtnstatus(bidProduct,holder)
         }
 
     }
@@ -149,10 +146,13 @@ class BidAdapter(
     private fun loadbtnstatus(product:BidProduct,holder: BidViewHolder){
         checkuseralreadyratedornot(product.productId, product.sellerId) { alreadyRated ->
             if(!alreadyRated){
+                holder.binding.transactionComplete.visibility= View.VISIBLE
+                holder.binding.transactionnotComplete.visibility= View.VISIBLE
                 holder.binding.transactionComplete.isEnabled=true
                 holder.binding.transactionnotComplete.isEnabled=true
             }
             else{
+                holder.binding.removefrombidbtn.visibility=View.VISIBLE
                 holder.binding.removefrombidbtn.isEnabled=true
             }
         }
@@ -178,7 +178,7 @@ class BidAdapter(
                 callback(rated)
             }
             override fun onCancelled(error: DatabaseError) {
-                Log.e("Firebase", "Database error: ${error.message}")
+
                 callback(rated)
             }
         })
@@ -201,10 +201,12 @@ class BidAdapter(
                     rateSellerInDatabase(sellerId, rating,status,productId,holder)
                     dialog.dismiss()
                 } else {
-                    Toast.makeText(context, "Please enter a valid rating between 0 and 5", Toast.LENGTH_SHORT).show()
+
+                    CustomToast.show(context,"Please enter a valid rating between 0 and 5")
                 }
             } else {
-                Toast.makeText(context, "Rating cannot be empty", Toast.LENGTH_SHORT).show()
+
+                CustomToast.show(context,"Rating cannot be empty")
             }
         }
         cancelButton.setOnClickListener {
@@ -230,12 +232,16 @@ class BidAdapter(
         )
         TransactionRef.setValue(transactionitem)
             .addOnSuccessListener {
-                Toast.makeText(context, "Thank u For the status update", Toast.LENGTH_SHORT).show()
-                holder.binding.transactionComplete.isEnabled=false
-                holder.binding.transactionnotComplete.isEnabled=false
+
+                CustomToast.show(context,"Thank u For the status update")
+                holder.binding.transactionComplete.visibility=View.GONE
+                holder.binding.transactionnotComplete.visibility=View.GONE
+                holder.binding.removefrombidbtn.visibility=View.VISIBLE
+                holder.binding.removefrombidbtn.isEnabled=true
             }
             .addOnFailureListener {
-                Toast.makeText(context, "Failed to update the status", Toast.LENGTH_SHORT).show()
+
+                CustomToast.show(context,"Failed to update the status")
             }
     }
 

@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.finalyearprojectwithfirebase.MainActivity
 import com.example.finalyearprojectwithfirebase.R
 import com.example.finalyearprojectwithfirebase.databinding.ActivityLoginBinding
+import com.example.finalyearprojectwithfirebase.model.CustomToast
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
@@ -72,13 +72,11 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch{
             try {
                 auth.signInWithEmailAndPassword(email, password).await()
-                Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT)
-                    .show()
+                CustomToast.show(this@LoginActivity, "Login successful!")
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
             } catch (e: Exception) {
-                Toast.makeText(this@LoginActivity,e.message, Toast.LENGTH_LONG)
-                    .show()
+                CustomToast.show(this@LoginActivity,e.message!!)
             } finally {
                 binding.btnLogin.isEnabled = true
                 binding.progressBar.visibility=View.GONE
@@ -124,7 +122,8 @@ class LoginActivity : AppCompatActivity() {
                     .setPositiveButton("OK", null)
                     .show()
             } catch (e: Exception) {
-                Toast.makeText(this@LoginActivity, "Failed: ${e.message}", Toast.LENGTH_LONG).show()
+
+                CustomToast.show(this@LoginActivity,"Failed: ${e.message}")
             }
         }
     }

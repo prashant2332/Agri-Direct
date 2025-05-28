@@ -6,20 +6,17 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.finalyearprojectwithfirebase.R
 import com.example.finalyearprojectwithfirebase.databinding.ProfileproductitemBinding
+import com.example.finalyearprojectwithfirebase.model.CustomToast
 import com.example.finalyearprojectwithfirebase.model.ProfileProduct
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.database
 
 
 class ProfileProductAdapter(
@@ -74,13 +71,13 @@ class ProfileProductAdapter(
                                 placeBid(product, bidInput, bidQuantity)
 
                             } else {
-                                Toast.makeText(context, "Bid amount or quantity is too low", Toast.LENGTH_SHORT).show()
+                                CustomToast.show(context, "Bid amount or quantity is too low")
                             }
                         } else {
-                            Toast.makeText(context, "Please enter both bid quantity and amount", Toast.LENGTH_SHORT).show()
+                            CustomToast.show(context, "Please enter both bid quantity and amount")
                         }
                     } else {
-                        Toast.makeText(context, "Bidding is disabled by Seller", Toast.LENGTH_SHORT).show()
+                        CustomToast.show(context, "Bidding is disabled by Seller")
                     }
                 }
                 .setNegativeButton("No") { dialog, _ ->
@@ -105,7 +102,7 @@ class ProfileProductAdapter(
             if (currentUserId != null) {
                 addToCart(product)
             } else {
-                Toast.makeText(context, "Please log in to add to cart", Toast.LENGTH_SHORT).show()
+                CustomToast.show(context, "Please log in to add to cart")
             }
         }
     }
@@ -122,11 +119,11 @@ class ProfileProductAdapter(
         productRef.child("currentbidderid").setValue(currentUserId)
         productRef.child("currentbidderquantity").setValue(bidQuantity)
             .addOnSuccessListener {
-                Toast.makeText(context, "Bid Placed", Toast.LENGTH_SHORT).show()
+                CustomToast.show(context, "Bid Placed")
                 onBidClick()
             }
             .addOnFailureListener {
-                Toast.makeText(context, "Bid is not Placed", Toast.LENGTH_SHORT).show()
+                CustomToast.show(context, "Bid is not Placed")
             }
 
         val bidRef = database.child("YourBids").child(currentUserId!!)
@@ -140,7 +137,7 @@ class ProfileProductAdapter(
                     child.ref.child("sellerId").setValue(product.sellerid)
                     child.ref.child("result").setValue("false")
                     bidUpdated = true
-                    Toast.makeText(context, "Updated your existing bid", Toast.LENGTH_SHORT).show()
+                    CustomToast.show(context, "Updated your existing bid")
                     break
                 }
             }
@@ -155,59 +152,60 @@ class ProfileProductAdapter(
                 )
                 newBidRef.setValue(bidItem)
                     .addOnSuccessListener {
-                        Toast.makeText(context, "Added to your bid section", Toast.LENGTH_SHORT).show()
+                        CustomToast.show(context, "Added to your bid section")
                     }
                     .addOnFailureListener {
-                        Toast.makeText(context, "Cannot add to your bid section", Toast.LENGTH_SHORT).show()
+                        CustomToast.show(context, "Cannot add to your bid section")
                     }
             }
         }
     }
 
     private fun addToCart(product: ProfileProduct) {
-
-        if(!checkwhtheraddedtocartornot(product)) {
-            val cartRef = currentUserId?.let {
-                database.child("Cart").child(it).push()
+        checkWhetherAddedToCartOrNot(product) { isAlreadyInCart ->
+            if (!isAlreadyInCart) {
+                val cartRef = currentUserId?.let {
+                    database.child("Cart").child(it).push()
+                }
+                val cartItem = mapOf(
+                    "sellerId" to product.sellerid,
+                    "productId" to product.productId
+                )
+                cartRef?.setValue(cartItem)
+                    ?.addOnSuccessListener {
+                        CustomToast.show(context, "Added to your cart")
+                    }
+                    ?.addOnFailureListener {
+                        CustomToast.show(context, "Failed to add to cart")
+                    }
+            } else {
+                CustomToast.show(context, "Already in Your Cart")
             }
-            val cartItem = mapOf(
-                "sellerId" to product.sellerid,
-                "productId" to product.productId
-            )
-            cartRef?.setValue(cartItem)
-                ?.addOnSuccessListener {
-                    Toast.makeText(context, "Added to your cart", Toast.LENGTH_SHORT).show()
-                }
-                ?.addOnFailureListener {
-                    Toast.makeText(context, "Failed to add to cart", Toast.LENGTH_SHORT).show()
-                }
-        }
-        else{
-            Toast.makeText(context, "Already in Your Cart", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun checkwhtheraddedtocartornot(product: ProfileProduct):Boolean{
-        var status=false
+
+    private fun checkWhetherAddedToCartOrNot(product: ProfileProduct, callback: (Boolean) -> Unit) {
         if (currentUserId != null) {
             database.child("Cart")
                 .child(currentUserId)
                 .orderByChild("productId")
                 .equalTo(product.productId)
-                .addListenerForSingleValueEvent(object:ValueEventListener{
+                .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        if(snapshot.exists()){
-                            status=true
-                        }
-
+                        callback(snapshot.exists())
                     }
+
                     override fun onCancelled(error: DatabaseError) {
-                        Toast.makeText(context, "Failed to access the  cart", Toast.LENGTH_SHORT).show()
+                        CustomToast.show(context, "Failed to access the cart")
+                        callback(false)
                     }
                 })
+        } else {
+            callback(false)
         }
-        return status
     }
+
 
     private fun showFullScreenDialog(imageUrl: String) {
         val dialog = Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
